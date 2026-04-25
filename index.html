@@ -239,10 +239,7 @@ function calculate(){
 async function loadLive(){
   txt("status","טוען LIVE...");
   try{
-    const fx=await fetch("https://api.frankfurter.app/latest?from=USD&to=ILS");
-    const fxj=await fx.json();
-    if(fxj.rates && fxj.rates.ILS) usdils=fxj.rates.ILS;
-
+   
     const r=await fetch("/api/quote?symbols=SPY,QQQM,VTI,VXUS,SPMO,GLD,USO");
     const j=await r.json();
 
