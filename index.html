@@ -1,216 +1,25 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Freedom By Igor LIVE</title>
-<style>
-:root{--bg:#070604;--panel:#14100a;--panel2:#21170c;--gold:#d6a84a;--gold2:#8b611e;--cream:#f5ead8;--muted:#a89570;--green:#62c894;--red:#e06b7a;--line:#514026}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 20% 0,#3a240f,transparent 32%),#070604;color:var(--cream);font-family:Arial,sans-serif}
-.wrap{width:1450px;max-width:97vw;margin:auto;padding:24px}
-.hero,.card{background:rgba(20,16,10,.94);border:1px solid var(--line);border-radius:28px;box-shadow:0 22px 60px #0009}
-.hero{text-align:center;padding:30px;margin-bottom:20px}
-.badge{display:inline-block;border:1px solid var(--gold2);border-radius:999px;padding:8px 18px;color:var(--gold);margin-bottom:10px}
-h1{font-size:64px;margin:0}.sub{color:var(--muted);font-style:italic;margin-top:8px}
-.grid{display:grid;grid-template-columns:360px 1fr;gap:20px}
-.card{padding:20px;margin-bottom:18px}.title{font-size:24px;font-weight:900}.micro{font-size:11px;letter-spacing:.22em;color:var(--muted)}
-.inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-label{font-size:12px;color:#d8c79e}input,select{width:100%;padding:11px;margin-top:6px;border-radius:12px;border:1px solid #745a2d;background:#fff6e8;color:#15100a;font-size:15px}
-button{border:0;border-radius:12px;padding:11px 15px;background:linear-gradient(135deg,#9d7229,#5f4015);color:white;font-weight:800;cursor:pointer}
-.btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kpi{text-align:center}.kpi .v{font-size:31px;font-weight:900;margin-top:8px}
-.green{color:var(--green)}.gold{color:#ffc56f}.red{color:var(--red)}
-.big{font-size:76px;font-weight:900;color:#fff;margin:10px 0}.result{text-align:center;background:linear-gradient(135deg,#201408,#100c07)}
-.score{height:15px;background:#3d321d;border-radius:999px;overflow:hidden}.bar{height:100%;background:var(--green)}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}.chart{background:#0d0a06;border:1px solid #40311c;border-radius:22px;padding:14px}
-canvas{width:100%;height:260px;background:#0b0906;border-radius:16px}
-table{width:100%;border-collapse:collapse;font-size:13px}td,th{border-bottom:1px solid #332816;padding:9px;text-align:center}th{color:var(--gold)}
-.etfrow{display:grid;grid-template-columns:70px 1fr 1fr 1fr;gap:8px;align-items:end;margin:8px 0}
-.note{border-right:4px solid var(--gold);background:#161008;padding:16px;border-radius:16px;color:#e9d7b2}
-@media(max-width:950px){.grid,.split,.kpis{grid-template-columns:1fr}.big{font-size:42px}h1{font-size:38px}}
-</style>
-</head>
-<body>
-<div class="wrap">
+export default async function handler(req, res) {
+  const symbols = (req.query.symbols || "SPY,QQQM,VTI,VXUS,SPMO")
+    .split(",")
+    .map(s => s.trim().toUpperCase());
 
-<header class="hero">
-<div class="badge">♛ MONSTER LIVE EDITION</div>
-<h1>Freedom By Igor LIVE</h1>
-<div class="sub">מערכת חופש כלכלי · ETF Dashboard · FIRE Engine</div>
-</header>
+  const key = process.env.FINNHUB_API_KEY;
 
-<div class="grid">
-<aside>
+  const results = await Promise.all(
+    symbols.map(async symbol => {
+      const url = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${key}`;
+      const r = await fetch(url);
+      const q = await r.json();
 
-<div class="card">
-<div class="title">לוח שליטה</div><div class="micro">CORE ASSUMPTIONS</div>
-<div class="inputs">
-<label>גיל היום<input id="age" type="number" value="41"></label>
-<label>גיל יעד<input id="ret" type="number" value="65"></label>
-<label>הון התחלתי<input id="capital" type="number" value="50000"></label>
-<label>הפקדה חודשית<input id="monthly" type="number" value="1700"></label>
-<label>יעד חופש<input id="target" type="number" value="1000000"></label>
-<label>שער דולר<input id="fx" type="number" value="3.7" step="0.01"></label>
-<label>תשואה שנתית %<input id="retRate" type="number" value="10" step="0.1"></label>
-<label>אינפלציה %<input id="inflation" type="number" value="2.5" step="0.1"></label>
-<label>דמי ניהול %<input id="fee" type="number" value="0.2" step="0.1"></label>
-<label>מס רווחי הון %<input id="tax" type="number" value="25"></label>
-<label>כלל משיכה %<input id="withdraw" type="number" value="4" step="0.1"></label>
-<label>מטבע<select id="currency"><option value="ILS">₪ שקל</option><option value="USD">$ דולר</option></select></label>
-</div>
-<div class="btns">
-<button onclick="preset('base')">Base</button>
-<button onclick="preset('m1')">₪1M</button>
-<button onclick="preset('bold')">Bold</button>
-</div>
-</div>
+      return {
+        symbol,
+        price: q.c,
+        previousClose: q.pc,
+        change: q.d,
+        changePercent: q.dp
+      };
+    })
+  );
 
-<div class="card">
-<div class="title">ETF Portfolio</div>
-<div class="micro">SPY · QQQM · VTI · VXUS · SPMO</div>
-<div id="etfInputs"></div>
-<button style="width:100%;margin-top:10px" onclick="tryLive()">נסה Live Prices</button>
-<div class="micro" id="liveStatus" style="margin-top:10px">Demo/manual mode</div>
-</div>
-
-</aside>
-
-<main>
-<section class="card result">
-<div class="micro">התיק הצפוי בגיל <span id="retShow">65</span></div>
-<div id="futureValue" class="big">₪0</div>
-<div id="passive"></div>
-<br>
-<div style="display:flex;justify-content:space-between"><span>FIRE Score</span><b id="fireText">0%</b></div>
-<div class="score"><div id="fireBar" class="bar"></div></div>
-</section>
-
-<section class="kpis">
-<div class="card kpi"><div class="micro">שווי ETF היום</div><div id="etfNow" class="v green"></div></div>
-<div class="card kpi"><div class="micro">מיליון ראשון</div><div id="m1" class="v gold"></div></div>
-<div class="card kpi"><div class="micro">מיליון שני</div><div id="m2" class="v gold"></div></div>
-<div class="card kpi"><div class="micro">מיליון שלישי</div><div id="m3" class="v gold"></div></div>
-</section>
-
-<section class="split">
-<div class="chart"><div class="title">תיק עתידי</div><canvas id="c1" width="600" height="260"></canvas></div>
-<div class="chart"><div class="title">השוואת תרחישים 7% / 10% / 14%</div><canvas id="c2" width="600" height="260"></canvas></div>
-</section>
-
-<section class="split">
-<div class="chart"><div class="title">הקצאת ETF</div><canvas id="c3" width="600" height="260"></canvas></div>
-<div class="chart"><div class="title">מושקע מול מזומן</div><canvas id="c4" width="600" height="260"></canvas></div>
-</section>
-
-<div class="card">
-<div class="title">טבלת שנה־שנה</div>
-<table id="ledger"></table>
-</div>
-
-<div class="note" id="note"></div>
-</main>
-</div>
-</div>
-
-<script>
-let etfs=[
-{t:'SPY',shares:5,price:520},
-{t:'QQQM',shares:8,price:180},
-{t:'VTI',shares:6,price:260},
-{t:'VXUS',shares:10,price:60},
-{t:'SPMO',shares:7,price:80}
-];
-
-const $=id=>document.getElementById(id);
-const val=id=>+$(id).value||0;
-function cur(){return $('currency').value}
-function sym(){return cur()==='ILS'?'₪':'$'}
-function toCur(n){return cur()==='ILS'?n:n/Math.max(val('fx'),.01)}
-function money(n){return sym()+new Intl.NumberFormat('he-IL',{maximumFractionDigits:0}).format(toCur(n))}
-function short(n){n=toCur(n);if(Math.abs(n)>=1e6)return sym()+(n/1e6).toFixed(2)+'M';if(Math.abs(n)>=1e3)return sym()+(n/1e3).toFixed(1)+'K';return sym()+Math.round(n).toLocaleString('he-IL')}
-
-function renderEtfs(){
-$('etfInputs').innerHTML=etfs.map((e,i)=>`
-<div class="etfrow">
-<b>${e.t}</b>
-<label>יחידות<input type="number" value="${e.shares}" onchange="etfs[${i}].shares=+this.value;render()"></label>
-<label>מחיר $<input type="number" value="${e.price}" step="0.01" onchange="etfs[${i}].price=+this.value;render()"></label>
-<div>${money(e.shares*e.price*val('fx'))}</div>
-</div>`).join('');
+  res.status(200).json({ data: results });
 }
-function etfValueILS(){return etfs.reduce((s,e)=>s+e.shares*e.price*val('fx'),0)}
-
-function simulate(rateOverride=null){
-let age=val('age'),ret=val('ret'),cap=val('capital')+etfValueILS(),mon=val('monthly');
-let rate=((rateOverride??val('retRate'))-val('fee'))/100;
-let mr=Math.pow(1+rate,1/12)-1, ir=Math.pow(1+val('inflation')/100,1/12)-1, tax=val('tax')/100;
-let v=cap, invested=cap, cash=cap, rows=[];
-for(let y=age;y<=ret;y++){
- for(let m=0;m<12;m++){v+=mon;invested+=mon;cash+=mon;v*=1+mr}
- let gain=Math.max(v-invested,0), afterTax=invested+gain*(1-tax), real=afterTax/Math.pow(1+ir,(y-age+1)*12);
- rows.push({age:y,v,afterTax,real,invested,cash,gain:afterTax-invested});
-}
-return rows;
-}
-function milestone(rows,n){let r=rows.find(x=>x.afterTax>=n);return r?r.age:'—'}
-function preset(p){
-if(p==='base'){age.value=41;ret.value=65;capital.value=50000;monthly.value=1700;target.value=1000000;retRate.value=10}
-if(p==='m1'){age.value=41;ret.value=65;capital.value=50000;monthly.value=4200;target.value=1000000;retRate.value=10}
-if(p==='bold'){age.value=35;ret.value=65;capital.value=100000;monthly.value=6000;target.value=5000000;retRate.value=12}
-render()
-}
-
-function niceMax(n){let p=Math.pow(10,Math.floor(Math.log10(n||1))),d=n/p;return (d<=2?2:d<=5?5:10)*p}
-function chart(canvas,rows,series){
-let ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,l=58,r=18,t=18,b=38;
-ctx.clearRect(0,0,w,h);ctx.fillStyle='#0b0906';ctx.fillRect(0,0,w,h);
-let max=niceMax(Math.max(...rows.flatMap(x=>series.map(s=>x[s.k]||0)),1));
-ctx.font='12px Arial';ctx.strokeStyle='#332816';ctx.fillStyle='#a89570';
-for(let i=0;i<=5;i++){let y=h-b-(max*i/5/max)*(h-t-b);ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(w-r,y);ctx.stroke();ctx.textAlign='right';ctx.fillText(short(max*i/5),l-6,y)}
-ctx.textAlign='center';ctx.fillText(rows[0].age,l,h-b+18);ctx.fillText(rows.at(-1).age,w-r,h-b+18);
-series.forEach(s=>{ctx.strokeStyle=s.c;ctx.lineWidth=3;ctx.setLineDash(s.d?[7,5]:[]);ctx.beginPath();rows.forEach((x,i)=>{let xx=l+i*(w-l-r)/(rows.length-1),yy=h-b-((x[s.k]||0)/max)*(h-t-b);i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=s.c;ctx.textAlign='right';ctx.fillText(s.n+' '+short(rows.at(-1)[s.k]||0),w-r-4,h-b-((rows.at(-1)[s.k]||0)/max)*(h-t-b)-8)})
-}
-function pie(canvas){
-let ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,cx=w/2,cy=h/2,r=85,total=etfs.reduce((s,e)=>s+e.shares*e.price,0)||1,start=0;
-ctx.clearRect(0,0,w,h);ctx.fillStyle='#0b0906';ctx.fillRect(0,0,w,h);
-let colors=['#d6a84a','#62c894','#b85b22','#8d2636','#7aa4ff'];
-etfs.forEach((e,i)=>{let a=e.shares*e.price/total*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+a);ctx.fillStyle=colors[i];ctx.fill();start+=a});
-ctx.font='14px Arial';ctx.textAlign='right';
-etfs.forEach((e,i)=>{ctx.fillStyle=colors[i];ctx.fillRect(40,35+i*28,13,13);ctx.fillStyle='#f5ead8';ctx.fillText(e.t+' '+Math.round(e.shares*e.price/total*100)+'%',130,47+i*28)})
-}
-
-async function tryLive(){
-$('liveStatus').innerText='Live API may be blocked by browser/CORS. If it fails, use manual prices.';
-try{
- for(const e of etfs){
-   let res=await fetch('https://query1.finance.yahoo.com/v8/finance/chart/'+e.t);
-   let j=await res.json();
-   let p=j.chart.result[0].meta.regularMarketPrice;
-   if(p)e.price=p;
- }
- $('liveStatus').innerText='Live prices loaded';
-}catch(err){$('liveStatus').innerText='Live blocked — manual/demo prices active'}
-render()
-}
-
-function render(){
-renderEtfs();
-let rows=simulate(),last=rows.at(-1),target=val('target'),score=Math.min(100,Math.round(last.afterTax/target*100));
-retShow.innerText=val('ret');futureValue.innerText=money(last.afterTax);
-passive.innerText='הכנסה פסיבית משוערת: '+money(last.afterTax*(val('withdraw')/100)/12)+' לחודש';
-fireText.innerText=score+'%';fireBar.style.width=score+'%';
-etfNow.innerText=short(etfValueILS());m1.innerText=milestone(rows,1000000);m2.innerText=milestone(rows,2000000);m3.innerText=milestone(rows,3000000);
-chart(c1,rows,[{k:'afterTax',n:'תיק נטו',c:'#62c894'},{k:'real',n:'ריאלי',c:'#d6a84a'}]);
-let r7=simulate(7),r10=simulate(10),r14=simulate(14);
-chart(c2,r7.map((x,i)=>({age:x.age,a:r7[i].afterTax,b:r10[i].afterTax,c:r14[i].afterTax})),[{k:'a',n:'7%',c:'#8d2636'},{k:'b',n:'10%',c:'#d6a84a'},{k:'c',n:'14%',c:'#62c894'}]);
-pie(c3);
-chart(c4,rows,[{k:'afterTax',n:'מושקע',c:'#62c894'},{k:'cash',n:'מזומן',c:'#8d2636',d:true}]);
-ledger.innerHTML='<tr><th>גיל</th><th>תיק נטו</th><th>ריאלי</th><th>הופקד</th><th>רווח נטו</th><th>מזומן</th></tr>'+rows.map(r=>`<tr><td>${r.age}</td><td>${money(r.afterTax)}</td><td>${money(r.real)}</td><td>${money(r.invested)}</td><td>${money(r.gain)}</td><td>${money(r.cash)}</td></tr>`).join('');
-note.innerHTML='המפלצת מחשבת הון קיים + ETF Portfolio + הפקדות חודשיות + תשואה + דמי ניהול + מס + אינפלציה + שקל/דולר. מחירי Live תלויים בהרשאות API בדפדפן; תמיד אפשר לעדכן ידנית.';
-}
-document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',render));
-render();
-</script>
-</body>
-</html>
