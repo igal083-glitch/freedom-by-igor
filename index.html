@@ -1,25 +1,265 @@
-export default async function handler(req, res) {
-  const symbols = (req.query.symbols || "SPY,QQQM,VTI,VXUS,SPMO")
-    .split(",")
-    .map(s => s.trim().toUpperCase());
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Freedom By Igor LIVE</title>
 
-  const key = process.env.FINNHUB_API_KEY;
-
-  const results = await Promise.all(
-    symbols.map(async symbol => {
-      const url = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${key}`;
-      const r = await fetch(url);
-      const q = await r.json();
-
-      return {
-        symbol,
-        price: q.c,
-        previousClose: q.pc,
-        change: q.d,
-        changePercent: q.dp
-      };
-    })
-  );
-
-  res.status(200).json({ data: results });
+<style>
+body{
+margin:0;
+background:#0a0702;
+color:#f5e8c7;
+font-family:Arial;
+padding:20px;
 }
+.wrap{
+max-width:1100px;
+margin:auto;
+}
+.card{
+background:#151006;
+border:1px solid #8a6420;
+border-radius:22px;
+padding:22px;
+margin-bottom:18px;
+}
+h1{
+margin:0;
+font-size:54px;
+text-align:center;
+}
+.sub{
+text-align:center;
+color:#cfa64d;
+margin-top:8px;
+margin-bottom:20px;
+}
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+@media(max-width:900px){
+.grid{grid-template-columns:1fr;}
+}
+input{
+width:100%;
+padding:12px;
+font-size:22px;
+border-radius:12px;
+border:none;
+margin-bottom:12px;
+text-align:center;
+}
+label{
+font-size:14px;
+color:#d8b15c;
+display:block;
+margin-bottom:6px;
+}
+button{
+width:100%;
+padding:14px;
+font-size:22px;
+border:none;
+border-radius:14px;
+background:#a87a22;
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+.result{
+font-size:64px;
+font-weight:bold;
+text-align:center;
+margin:10px 0;
+}
+.small{
+text-align:center;
+font-size:22px;
+}
+.green{color:#56d48a}
+.red{color:#ff7373}
+.gold{color:#f0c04c}
+table{
+width:100%;
+border-collapse:collapse;
+font-size:20px;
+}
+td{
+padding:10px;
+border-bottom:1px solid #3a2c10;
+}
+#liveStatus{
+text-align:center;
+margin-top:10px;
+color:#f0c04c;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<div class="card">
+<h1>Freedom By Igor</h1>
+<div class="sub">LIVE ETF PORTFOLIO</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>הגדרות תיק</h2>
+
+<label>גיל נוכחי</label>
+<input id="age" value="41">
+
+<label>גיל יעד</label>
+<input id="ret" value="65">
+
+<label>הון נוכחי ₪</label>
+<input id="cap" value="50000">
+
+<label>הפקדה חודשית ₪</label>
+<input id="mon" value="1700">
+
+<label>תשואה שנתית %</label>
+<input id="rate" value="10">
+
+<button onclick="calc()">חשב</button>
+</div>
+
+<div class="card">
+<h2>ETF Portfolio</h2>
+
+<table>
+<tr><td>SPY</td><td><input id="spyu" value="5"></td><td><input id="spyp" value="520"></td></tr>
+<tr><td>QQQM</td><td><input id="qqqu" value="8"></td><td><input id="qqqp" value="180"></td></tr>
+<tr><td>VTI</td><td><input id="vtiu" value="6"></td><td><input id="vtip" value="260"></td></tr>
+<tr><td>VXUS</td><td><input id="vxusu" value="10"></td><td><input id="vxusp" value="60"></td></tr>
+<tr><td>SPMO</td><td><input id="spmou" value="7"></td><td><input id="spmop" value="80"></td></tr>
+</table>
+
+<button onclick="tryLive()">LIVE Prices</button>
+<div id="liveStatus">מוכן לחיבור LIVE</div>
+
+</div>
+
+</div>
+
+<div class="card">
+<div class="small">שווי תיק בגיל יעד</div>
+<div class="result gold" id="future">₪0</div>
+<div class="small" id="income">₪0 הכנסה חודשית</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="small">שווי ETF נוכחי</div>
+<div class="result green" id="etfNow">₪0</div>
+</div>
+
+<div class="card">
+<div class="small">רווח מהשקעות</div>
+<div class="result green" id="profit">₪0</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+let usdils = 3.6;
+
+let prices = {
+SPY:520,
+QQQM:180,
+VTI:260,
+VXUS:60,
+SPMO:80
+};
+
+function n(x){
+return Number(x)||0;
+}
+
+function fmt(x){
+return "₪" + Math.round(x).toLocaleString();
+}
+
+function calc(){
+
+let age=n(ageEl("age"));
+let ret=n(ageEl("ret"));
+let years=ret-age;
+
+let cap=n(ageEl("cap"));
+let mon=n(ageEl("mon"));
+let rate=n(ageEl("rate"))/100;
+
+let fv=cap*Math.pow(1+rate,years);
+
+for(let i=1;i<=years*12;i++){
+fv += mon*Math.pow(1+rate/12,(years*12)-i);
+}
+
+future.innerText=fmt(fv);
+income.innerText=fmt(fv*0.04/12)+" פסיבית חודשית";
+
+let etf =
+n(ageEl("spyu"))*prices.SPY*usdils+
+n(ageEl("qqqu"))*prices.QQQM*usdils+
+n(ageEl("vtiu"))*prices.VTI*usdils+
+n(ageEl("vxusu"))*prices.VXUS*usdils+
+n(ageEl("spmou"))*prices.SPMO*usdils;
+
+etfNow.innerText=fmt(etf);
+profit.innerText=fmt(fv-cap);
+}
+
+function ageEl(id){
+return document.getElementById(id).value;
+}
+
+async function tryLive(){
+
+document.getElementById("liveStatus").innerText="טוען LIVE...";
+
+try{
+
+const fx = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=ILS");
+const fxj = await fx.json();
+usdils = fxj.rates.ILS;
+
+const r = await fetch('/api/quote?symbols=SPY,QQQM,VTI,VXUS,SPMO');
+const j = await r.json();
+
+j.data.forEach(x=>{
+if(x.price>0){
+prices[x.symbol]=x.price;
+}
+});
+
+document.getElementById("spyp").value=prices.SPY.toFixed(2);
+document.getElementById("qqqp").value=prices.QQQM.toFixed(2);
+document.getElementById("vtip").value=prices.VTI.toFixed(2);
+document.getElementById("vxusp").value=prices.VXUS.toFixed(2);
+document.getElementById("spmop").value=prices.SPMO.toFixed(2);
+
+document.getElementById("liveStatus").innerText="LIVE CONNECTED ✓";
+
+calc();
+
+}catch(e){
+document.getElementById("liveStatus").innerText="LIVE ERROR";
+}
+}
+
+calc();
+</script>
+
+</body>
+</html>
