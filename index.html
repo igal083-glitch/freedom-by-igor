@@ -6,41 +6,202 @@
 <title>Freedom By Igor</title>
 <style>
 :root{
-  --bg:#f4efe4;--panel:#e9e1d2;--ink:#15120d;--muted:#817765;
-  --gold:#b98a22;--green:#2f6b4f;--orange:#b85b22;--red:#8d2636;--line:#cfc4ae;
+  --bg:#f4efe4;
+  --panel:#e9e1d2;
+  --paper:#f7f1e6;
+  --ink:#15120d;
+  --muted:#817765;
+  --gold:#b98a22;
+  --green:#2f6b4f;
+  --orange:#b85b22;
+  --red:#8d2636;
+  --line:#cfc4ae;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
-.page{width:1280px;max-width:96vw;margin:auto;padding:10px}
-.top{border-top:2px solid #111;border-bottom:1px solid #111;text-align:center;padding:14px;position:relative}
-.logo{font-size:36px;font-weight:900}.sub{font-style:italic;color:var(--muted)}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+}
+.page{
+  width:1280px;
+  max-width:96vw;
+  margin:auto;
+  padding:10px;
+}
+.top{
+  border-top:2px solid #111;
+  border-bottom:1px solid #111;
+  text-align:center;
+  padding:14px;
+  position:relative;
+}
+.logo{font-size:36px;font-weight:900}
+.sub{font-style:italic;color:var(--muted)}
 .vol{position:absolute;right:10px;top:30px;font-size:12px;letter-spacing:3px;color:var(--muted)}
 .date{position:absolute;left:10px;top:18px;font-size:12px;letter-spacing:3px}
-.tabs{display:flex;gap:45px;border-bottom:3px solid var(--gold);padding:22px;font-size:21px;font-weight:bold}
-.tabs span{color:var(--gold);font-style:italic}.tabs button{font:inherit;background:0;border:0;cursor:pointer;color:inherit}
-.layout{display:grid;grid-template-columns:310px 1fr;gap:20px;margin-top:18px}
-.panel{background:var(--panel);padding:18px;border-top:4px solid #111}
-h2{margin:0 0 3px}.small{font-size:11px;letter-spacing:3px;color:var(--muted)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-label{font-size:11px;letter-spacing:2px;color:var(--muted);font-weight:bold}
-input,select{width:100%;padding:9px;background:#f6f1e7;border:1px solid #aaa;margin-top:5px}
+.date button{margin:2px}
+
+.tabs{
+  display:flex;
+  gap:45px;
+  border-bottom:3px solid var(--gold);
+  padding:22px;
+  font-size:21px;
+  font-weight:bold;
+}
+.tabs span{color:var(--gold);font-style:italic}
+.tabs button{
+  font:inherit;
+  background:transparent;
+  border:0;
+  cursor:pointer;
+}
+.layout{
+  display:grid;
+  grid-template-columns:315px 1fr;
+  gap:20px;
+  margin-top:18px;
+}
+.panel{
+  background:var(--panel);
+  padding:18px;
+  border-top:4px solid #111;
+}
+h2{margin:0 0 3px}
+.small{
+  font-size:11px;
+  letter-spacing:3px;
+  color:var(--muted);
+}
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+label{
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--muted);
+  font-weight:bold;
+}
+input,select{
+  width:100%;
+  padding:9px;
+  background:#f6f1e7;
+  border:1px solid #aaa;
+  margin-top:5px;
+}
 input[type=range]{accent-color:#657889}
-button{background:#eee8dc;border:1px solid #777;padding:8px;font-weight:bold;cursor:pointer}
-.row{display:grid;grid-template-columns:70px 60px 1fr 25px;gap:6px;margin:6px 0;align-items:end}
+button{
+  background:#eee8dc;
+  border:1px solid #777;
+  padding:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.row{
+  display:grid;
+  grid-template-columns:72px 58px 1fr 25px;
+  gap:6px;
+  margin:6px 0;
+  align-items:end;
+}
 .main{border-top:4px solid #111}
-.hero{background:var(--panel);text-align:center;padding:28px;margin-bottom:15px}
-.big{font-size:92px;font-weight:900}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #111;border-bottom:1px solid #111;text-align:center}
-.metric{padding:18px;border-left:1px solid var(--line)}.metric:last-child{border-left:0}
-.metric .v{font-size:30px;font-weight:bold}.green{color:var(--green)}.orange{color:var(--orange)}.red{color:var(--red)}
-.charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.chartbox{background:#f7f1e6;border:1px solid #d4c8b0;padding:16px}
-.chartTitle{display:flex;justify-content:space-between;border-bottom:1px solid #d4c8b0;padding-bottom:10px;margin-bottom:10px}
-canvas{width:100%;height:230px}
-.note{background:var(--panel);border-right:4px solid var(--gold);margin-top:15px;padding:18px;font-style:italic}
-table{width:100%;border-collapse:collapse;background:#f7f1e6;margin-top:14px;font-size:13px}
-td,th{border:1px solid var(--line);padding:8px;text-align:center}
-.hidden{display:none}
+.hero{
+  background:var(--panel);
+  text-align:center;
+  padding:28px;
+  margin-bottom:15px;
+}
+.big{
+  font-size:92px;
+  font-weight:900;
+}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid #111;
+  border-bottom:1px solid #111;
+  text-align:center;
+}
+.metric{
+  padding:18px;
+  border-left:1px solid var(--line);
+}
+.metric:last-child{border-left:0}
+.metric .v{
+  font-size:30px;
+  font-weight:bold;
+}
+.green{color:var(--green)}
+.orange{color:var(--orange)}
+.red{color:var(--red)}
+
+.charts{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:14px;
+}
+.chartbox{
+  background:var(--paper);
+  border:1px solid #d4c8b0;
+  padding:16px;
+}
+.chartTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #d4c8b0;
+  padding-bottom:10px;
+  margin-bottom:8px;
+}
+.legend{
+  display:flex;
+  gap:12px;
+  font-size:12px;
+  color:#6d614b;
+  margin-top:8px;
+  justify-content:center;
+}
+.dot{
+  display:inline-block;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  margin-left:4px;
+}
+canvas{
+  width:100%;
+  height:280px;
+  background:#fbf5e9;
+}
+.note{
+  background:var(--panel);
+  border-right:4px solid var(--gold);
+  margin-top:15px;
+  padding:18px;
+  font-style:italic;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:var(--paper);
+  margin-top:14px;
+  font-size:13px;
+}
+td,th{
+  border:1px solid var(--line);
+  padding:8px;
+  text-align:center;
+}
+@media(max-width:900px){
+  .layout,.charts,.metrics{grid-template-columns:1fr}
+  .big{font-size:48px}
+}
 </style>
 </head>
 
@@ -51,16 +212,23 @@ td,th{border:1px solid var(--line);padding:8px;text-align:center}
   <div class="vol">כרך 1 · גיליון 1</div>
   <div class="logo">FREEDOM BY IGOR</div>
   <div class="sub">יומן החופש הכלכלי</div>
-  <div class="date"><button onclick="setCurrency('USD')">USD $</button> <button onclick="setCurrency('ILS')">ILS ₪</button><br>2026</div>
+  <div class="date">
+    <button onclick="setCurrency('USD')">USD $</button>
+    <button onclick="setCurrency('ILS')">ILS ₪</button>
+    <br>2026
+  </div>
 </header>
 
 <div class="tabs">
   <button onclick="mode='forward';render()"><span>1.</span> סימולטור קדימה</button>
   <button onclick="mode='reverse';render()" style="color:#817765"><span>2.</span> הנדסה לאחור</button>
-  <div style="margin-right:auto;font-size:14px;color:#8b806b;font-style:italic">קבע את התוכנית. היומן יראה לך לאן תגיע.</div>
+  <div style="margin-right:auto;font-size:14px;color:#8b806b;font-style:italic">
+    קבע את התוכנית. היומן יראה לך לאן תגיע.
+  </div>
 </div>
 
 <div class="layout">
+
 <aside class="panel">
 <h2>התוכנית שלך</h2>
 <div class="small">הנתונים שמעצבים את התוצאה</div>
@@ -98,6 +266,7 @@ td,th{border:1px solid var(--line);padding:8px;text-align:center}
 </aside>
 
 <main class="main">
+
 <section class="hero">
 <div class="small" id="heroLabel">התיק שלך בגיל <b id="retShow">65</b></div>
 <div id="portfolio" class="big">₪0</div>
@@ -105,36 +274,73 @@ td,th{border:1px solid var(--line);padding:8px;text-align:center}
 </section>
 
 <section class="metrics">
-<div class="metric"><div class="small">הופקד בפועל</div><div id="invested" class="v green"></div><div id="investedPct" class="sub"></div></div>
-<div class="metric"><div class="small">נוצר מריבית דריבית</div><div id="gains" class="v orange"></div><div class="sub">רווח נטו לפני/אחרי מס לפי ההגדרה</div></div>
-<div class="metric"><div class="small">מחיר הישיבה על מזומן</div><div id="cashCost" class="v red"></div><div class="sub">פער מול השקעה</div></div>
+<div class="metric">
+  <div class="small">הופקד בפועל</div>
+  <div id="invested" class="v green"></div>
+  <div id="investedPct" class="sub"></div>
+</div>
+<div class="metric">
+  <div class="small">נוצר מריבית דריבית</div>
+  <div id="gains" class="v orange"></div>
+  <div class="sub">רווח נטו אחרי מס</div>
+</div>
+<div class="metric">
+  <div class="small">מחיר הישיבה על מזומן</div>
+  <div id="cashCost" class="v red"></div>
+  <div class="sub">פער מול השקעה</div>
+</div>
 </section>
 
 <section class="charts">
 <div class="chartbox">
-<div class="chartTitle"><h2>ריבית דריבית</h2><span class="small">הפקדות · רווחים</span></div>
-<canvas id="c1" width="430" height="230"></canvas>
+  <div class="chartTitle">
+    <h2>ריבית דריבית</h2>
+    <span class="small">הפקדות · רווחים</span>
+  </div>
+  <canvas id="c1" width="500" height="280"></canvas>
+  <div class="legend">
+    <span><i class="dot" style="background:#2f6b4f"></i>הפקדות</span>
+    <span><i class="dot" style="background:#b85b22"></i>רווחים נטו</span>
+  </div>
 </div>
+
 <div class="chartbox">
-<div class="chartTitle"><h2>מחיר הזהירות</h2><span id="cashTag" class="red"></span></div>
-<canvas id="c2" width="430" height="230"></canvas>
+  <div class="chartTitle">
+    <h2>מחיר הזהירות</h2>
+    <span id="cashTag" class="red"></span>
+  </div>
+  <canvas id="c2" width="500" height="280"></canvas>
+  <div class="legend">
+    <span><i class="dot" style="background:#2f6b4f"></i>השקעה</span>
+    <span><i class="dot" style="background:#8d2636"></i>מזומן</span>
+  </div>
 </div>
 </section>
 
 <section class="chartbox" style="margin-top:14px">
-<div class="chartTitle"><h2>תיק ריאלי מול נומינלי</h2><span class="small">אינפלציה</span></div>
-<canvas id="c3" width="900" height="230"></canvas>
+  <div class="chartTitle">
+    <h2>תיק נומינלי מול תיק ריאלי</h2>
+    <span class="small">אחרי השפעת אינפלציה</span>
+  </div>
+  <canvas id="c3" width="970" height="280"></canvas>
+  <div class="legend">
+    <span><i class="dot" style="background:#2f6b4f"></i>תיק נומינלי</span>
+    <span><i class="dot" style="background:#b85b22"></i>תיק ריאלי</span>
+  </div>
 </section>
 
 <div class="note" id="note"></div>
 
 <table id="ledger"></table>
+
 </main>
 </div>
 </div>
 
 <script>
-let currency='ILS', mode='forward';
+let currency='ILS';
+let mode='forward';
+
 let eventList=[
  {type:'monthly',age:45,amount:2500},
  {type:'monthly',age:50,amount:4000},
@@ -142,9 +348,9 @@ let eventList=[
 ];
 
 const $=id=>document.getElementById(id);
-function val(id){return +$(id).value}
+function val(id){return +$(id).value || 0}
 function symbol(){return currency==='ILS'?'₪':'$'}
-function convert(n){return currency==='ILS'?n:n/val('fx')}
+function convert(n){return currency==='ILS'?n:n/Math.max(val('fx'),0.01)}
 function money(n){
  return symbol()+new Intl.NumberFormat('he-IL',{maximumFractionDigits:0}).format(convert(n));
 }
@@ -168,13 +374,25 @@ function renderEvents(){
   <button onclick="eventList.splice(${i},1);render()">×</button>
  </div>`).join('');
 }
-function addEvent(){eventList.push({type:'monthly',age:val('age')+5,amount:val('mon')+500});render()}
+function addEvent(){
+ eventList.push({type:'monthly',age:val('age')+5,amount:val('mon')+500});
+ render();
+}
 
 function preset(x){
- if(x===1){age.value=41;ret.value=65;cap.value=50000;mon.value=1700;target.value=1000000;rate.value=10;inflation.value=2.5;fee.value=.2;tax.value=25}
- if(x===2){age.value=41;ret.value=65;cap.value=50000;mon.value=4200;target.value=1000000;rate.value=10;inflation.value=2.5;fee.value=.2;tax.value=25}
- if(x===3){age.value=35;ret.value=65;cap.value=100000;mon.value=6000;target.value=5000000;rate.value=12;inflation.value=2.5;fee.value=.2;tax.value=25}
- render()
+ if(x===1){
+  age.value=41;ret.value=65;cap.value=50000;mon.value=1700;target.value=1000000;
+  rate.value=10;inflation.value=2.5;fee.value=.2;tax.value=25;
+ }
+ if(x===2){
+  age.value=41;ret.value=65;cap.value=50000;mon.value=4200;target.value=1000000;
+  rate.value=10;inflation.value=2.5;fee.value=.2;tax.value=25;
+ }
+ if(x===3){
+  age.value=35;ret.value=65;cap.value=100000;mon.value=6000;target.value=5000000;
+  rate.value=12;inflation.value=2.5;fee.value=.2;tax.value=25;
+ }
+ render();
 }
 
 function simulate(monthlyOverride=null){
@@ -192,14 +410,20 @@ function simulate(monthlyOverride=null){
    }
    for(let m=0;m<12;m++){
      for(const e of eventList){
-       if(e.type==='lump' && y===e.age && m===0){v+=e.amount;invested+=e.amount;cash+=e.amount}
+       if(e.type==='lump' && y===e.age && m===0){
+         v+=e.amount;invested+=e.amount;cash+=e.amount;
+       }
      }
-     v+=cm; invested+=cm; cash+=cm; v*=1+mr;
+     v+=cm;
+     invested+=cm;
+     cash+=cm;
+     v*=1+mr;
    }
-   let gain=Math.max(v-invested,0);
-   let afterTax=invested+gain*(1-tax);
+   let grossGain=Math.max(v-invested,0);
+   let afterTax=invested+grossGain*(1-tax);
+   let netGain=afterTax-invested;
    let real=afterTax/Math.pow(1+ir,(y-a+1)*12);
-   rows.push({age:y,value:v,afterTax,invested,gain,cash,real,monthly:cm});
+   rows.push({age:y,value:v,afterTax,invested,netGain,cash,real,monthly:cm});
  }
  return rows;
 }
@@ -214,29 +438,97 @@ function reverseMonthly(){
  return high;
 }
 
-function draw(canvas,rows,series){
- let ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,p=32;
+function niceMax(n){
+ if(n<=0)return 1;
+ const pow=Math.pow(10,Math.floor(Math.log10(n)));
+ const d=n/pow;
+ if(d<=2)return 2*pow;
+ if(d<=5)return 5*pow;
+ return 10*pow;
+}
+
+function drawChart(canvas,rows,series){
+ const ctx=canvas.getContext('2d');
+ const w=canvas.width,h=canvas.height;
+ const left=58,right=22,top=22,bottom=42;
  ctx.clearRect(0,0,w,h);
- ctx.strokeStyle='#ddd2ba'; ctx.lineWidth=1;
- for(let i=0;i<6;i++){let y=p+i*(h-2*p)/5;ctx.beginPath();ctx.moveTo(p,y);ctx.lineTo(w-p,y);ctx.stroke()}
- let max=Math.max(1,...rows.flatMap(r=>series.map(s=>r[s.key])));
- function line(key,color,dash=false){
-   ctx.strokeStyle=color; ctx.lineWidth=3; ctx.setLineDash(dash?[7,5]:[]);
+ ctx.fillStyle='#fbf5e9';
+ ctx.fillRect(0,0,w,h);
+
+ const vals=rows.flatMap(r=>series.map(s=>Math.max(r[s.key],0)));
+ const max=niceMax(Math.max(...vals,1));
+
+ ctx.font='12px Arial';
+ ctx.textAlign='right';
+ ctx.textBaseline='middle';
+
+ for(let i=0;i<=5;i++){
+   const value=max*i/5;
+   const y=h-bottom-(value/max)*(h-top-bottom);
+   ctx.strokeStyle='#ddd2ba';
+   ctx.lineWidth=1;
+   ctx.beginPath();
+   ctx.moveTo(left,y);
+   ctx.lineTo(w-right,y);
+   ctx.stroke();
+
+   ctx.fillStyle='#6d614b';
+   ctx.fillText(short(value),left-8,y);
+ }
+
+ const first=rows[0], last=rows[rows.length-1];
+ ctx.textAlign='center';
+ ctx.textBaseline='top';
+ ctx.fillStyle='#6d614b';
+ ctx.fillText(first.age,left,h-bottom+14);
+ ctx.fillText(last.age,w-right,h-bottom+14);
+ ctx.fillText('גיל',w/2,h-18);
+
+ function xy(r,i,key){
+   const x=left+i*(w-left-right)/(rows.length-1);
+   const y=h-bottom-(r[key]/max)*(h-top-bottom);
+   return {x,y};
+ }
+
+ for(const s of series){
+   ctx.strokeStyle=s.color;
+   ctx.lineWidth=3;
+   ctx.setLineDash(s.dash?[8,5]:[]);
    ctx.beginPath();
    rows.forEach((r,i)=>{
-     let x=p+i*(w-2*p)/(rows.length-1);
-     let y=h-p-(r[key]/max)*(h-2*p);
-     i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+     const p=xy(r,i,s.key);
+     i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);
    });
-   ctx.stroke(); ctx.setLineDash([]);
+   ctx.stroke();
+   ctx.setLineDash([]);
+
+   const end=xy(last,rows.length-1,s.key);
+   ctx.fillStyle=s.color;
+   ctx.beginPath();
+   ctx.arc(end.x,end.y,4,0,Math.PI*2);
+   ctx.fill();
+
+   ctx.font='bold 12px Arial';
+   ctx.textAlign='right';
+   ctx.textBaseline='bottom';
+   ctx.fillText(s.name+': '+short(last[s.key]),end.x-6,end.y-6);
  }
- series.forEach(s=>line(s.key,s.color,s.dash));
+
+ ctx.strokeStyle='#8b806b';
+ ctx.lineWidth=1;
+ ctx.beginPath();
+ ctx.moveTo(left,top);
+ ctx.lineTo(left,h-bottom);
+ ctx.lineTo(w-right,h-bottom);
+ ctx.stroke();
 }
 
 function render(){
  renderEvents();
  rateText.innerText=rate.value+'%';
+
  let rows=simulate();
+
  if(mode==='reverse'){
    let needed=reverseMonthly();
    mon.value=Math.round(needed);
@@ -245,24 +537,57 @@ function render(){
  }else{
    heroLabel.innerHTML='התיק שלך בגיל <b id="retShow">'+ret.value+'</b>';
  }
- let last=rows.at(-1), cost=last.afterTax-last.cash;
+
+ let last=rows.at(-1);
+ let cost=last.afterTax-last.cash;
+
  portfolio.innerText=mode==='reverse'?money(val('mon')):money(last.afterTax);
+
  passive.innerText=mode==='reverse'
   ? 'כדי להגיע ליעד '+money(val('target'))+' בגיל '+ret.value
   : 'תומך בכ־'+money(last.afterTax*(val('withdraw')/100)/12)+' לחודש לפי כלל '+val('withdraw')+'%';
+
  invested.innerText=short(last.invested);
- gains.innerText=short(last.afterTax-last.invested);
+ gains.innerText=short(last.netGain);
  cashCost.innerText=short(cost);
  cashTag.innerText='△ '+short(cost);
- investedPct.innerText=Math.round(last.invested/last.afterTax*100)+'% מהתיק';
- note.innerHTML='₪100 שהושקעו היום הופכים ל־<b>'+money(100*Math.pow(1+(val('rate')-val('fee'))/100,val('ret')-val('age')))+'</b> עד גיל '+ret.value+
- '. החישוב כולל דמי ניהול, מס, אינפלציה ואירועים עתידיים.';
- draw(c1,rows,[{key:'gain',color:'#b85b22'},{key:'invested',color:'#2f6b4f'}]);
- draw(c2,rows,[{key:'afterTax',color:'#2f6b4f'},{key:'cash',color:'#8d2636',dash:true}]);
- draw(c3,rows,[{key:'afterTax',color:'#2f6b4f'},{key:'real',color:'#b85b22'}]);
- ledger.innerHTML='<tr><th>גיל</th><th>תיק נטו</th><th>תיק ריאלי</th><th>הופקד</th><th>רווח</th><th>מזומן</th><th>חודשי</th></tr>'+
- rows.map(r=>`<tr><td>${r.age}</td><td>${money(r.afterTax)}</td><td>${money(r.real)}</td><td>${money(r.invested)}</td><td>${money(r.afterTax-r.invested)}</td><td>${money(r.cash)}</td><td>${money(r.monthly)}</td></tr>`).join('');
+ investedPct.innerText=Math.round(last.invested/Math.max(last.afterTax,1)*100)+'% מהתיק';
+
+ note.innerHTML=
+ '₪100 שהושקעו היום הופכים ל־<b>'+
+ money(100*Math.pow(1+(val('rate')-val('fee'))/100,val('ret')-val('age')))+
+ '</b> עד גיל '+ret.value+
+ '. החישוב כולל דמי ניהול, מס, אינפלציה, מטבע ואירועים עתידיים.';
+
+ drawChart(c1,rows,[
+  {key:'invested',name:'הפקדות',color:'#2f6b4f'},
+  {key:'netGain',name:'רווח נטו',color:'#b85b22'}
+ ]);
+
+ drawChart(c2,rows,[
+  {key:'afterTax',name:'מושקע',color:'#2f6b4f'},
+  {key:'cash',name:'מזומן',color:'#8d2636',dash:true}
+ ]);
+
+ drawChart(c3,rows,[
+  {key:'afterTax',name:'נומינלי',color:'#2f6b4f'},
+  {key:'real',name:'ריאלי',color:'#b85b22'}
+ ]);
+
+ ledger.innerHTML=
+ '<tr><th>גיל</th><th>תיק נטו</th><th>תיק ריאלי</th><th>הופקד</th><th>רווח נטו</th><th>מזומן</th><th>חודשי</th></tr>'+
+ rows.map(r=>`
+ <tr>
+  <td>${r.age}</td>
+  <td>${money(r.afterTax)}</td>
+  <td>${money(r.real)}</td>
+  <td>${money(r.invested)}</td>
+  <td>${money(r.netGain)}</td>
+  <td>${money(r.cash)}</td>
+  <td>${money(r.monthly)}</td>
+ </tr>`).join('');
 }
+
 document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',render));
 render();
 </script>
