@@ -1,64 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Freedom By Igor</title>
 <style>
-body{margin:0;font-family:Arial;background:#0c0b09;color:#f5eddf}
-.wrap{max-width:1100px;margin:auto;padding:30px}
-.card{background:#17130d;border:1px solid #6b5838;border-radius:24px;padding:24px;margin-bottom:20px}
-h1{font-size:58px;margin:0;color:#fff7e9}
-.gold{color:#d3a84d}
-input{width:100%;padding:12px;margin:8px 0;border-radius:12px;border:1px solid #6b5838}
-button{padding:14px 20px;background:#6f4f19;color:#fff;border:0;border-radius:12px;cursor:pointer}
-.big{font-size:70px;font-weight:bold}
+body{
+margin:0;
+font-family:Arial;
+background:#000;
+color:#fff;
+padding:30px;
+}
+.wrap{
+max-width:1100px;
+margin:auto;
+}
+.card{
+background:#120b02;
+border:1px solid #7a5617;
+border-radius:24px;
+padding:25px;
+margin-bottom:25px;
+}
+h1{
+font-size:64px;
+margin:0;
+color:#fff;
+}
+.gold{
+color:#d8a63a;
+}
+input{
+width:100%;
+padding:15px;
+margin:10px 0;
+font-size:22px;
+border-radius:14px;
+border:none;
+}
+button{
+padding:15px 30px;
+font-size:22px;
+background:#8a6418;
+color:#fff;
+border:none;
+border-radius:14px;
+cursor:pointer;
+}
+.result{
+font-size:70px;
+font-weight:bold;
+margin-top:15px;
+}
+.small{
+font-size:28px;
+color:#ddd;
+}
 </style>
 </head>
 <body>
 <div class="wrap">
+
 <div class="card">
 <h1>Freedom By Igor</h1>
 <div class="gold">מפת הדרך האישית לחופש כלכלי</div>
 </div>
 
 <div class="card">
-<input id="age" type="number" value="41" placeholder="גיל היום">
+<input id="age" type="number" value="41" placeholder="גיל נוכחי">
 <input id="ret" type="number" value="65" placeholder="גיל יעד">
 <input id="cap" type="number" value="50000" placeholder="הון קיים">
 <input id="mon" type="number" value="1700" placeholder="הפקדה חודשית">
-<input id="rate" type="number" value="10" placeholder="תשואה שנתית">
+<input id="rate" type="number" value="10" placeholder="תשואה שנתית %">
 <button onclick="calc()">חשב</button>
 </div>
 
 <div class="card">
-<div>התיק הצפוי:</div>
-<div id="out" class="big">₪0</div>
-<div id="passive"></div>
+<div class="small">התיק הצפוי:</div>
+<div class="result" id="out">₪ 0</div>
+<div class="small" id="monthly"></div>
 </div>
+
 </div>
 
 <script>
-function money(n){
-return new Intl.NumberFormat('he-IL',{style:'currency',currency:'ILS',maximumFractionDigits:0}).format(n)
-}
 function calc(){
-let age=+document.getElementById('age').value;
-let ret=+document.getElementById('ret').value;
-let cap=+document.getElementById('cap').value;
-let mon=+document.getElementById('mon').value;
-let rate=+document.getElementById('rate').value;
+let age=+document.getElementById("age").value;
+let ret=+document.getElementById("ret").value;
+let cap=+document.getElementById("cap").value;
+let mon=+document.getElementById("mon").value;
+let rate=+document.getElementById("rate").value/100;
 
-let months=(ret-age)*12;
-let r=Math.pow(1+rate/100,1/12)-1;
-let v=cap;
+let years=ret-age;
+let total=cap;
 
-for(let i=0;i<months;i++){v=v*(1+r)+mon;}
+for(let i=0;i<years*12;i++){
+total+=mon;
+total*=1+rate/12;
+}
 
-document.getElementById('out').innerText=money(v);
-document.getElementById('passive').innerText='הכנסה פסיבית משוערת: '+money(v*0.04/12)+' לחודש';
+document.getElementById("out").innerHTML="₪ "+Math.round(total).toLocaleString();
+document.getElementById("monthly").innerHTML="הכנסה פסיבית משוערת: ₪ "+Math.round(total*0.04/12).toLocaleString()+" לחודש";
 }
 calc();
 </script>
+
 </body>
 </html>
