@@ -3,113 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Freedom By Igor LIVE MONSTER</title>
+<title>Freedom By Igor LIVE PRO</title>
 
 <style>
+:root{
+--bg:#060402;
+--panel:#151008;
+--panel2:#20160b;
+--gold:#d6a84a;
+--gold2:#8b611e;
+--cream:#f5ead8;
+--muted:#b6a17a;
+--green:#62c894;
+--red:#e06b7a;
+--line:#4b3921;
+}
+*{box-sizing:border-box}
 body{
 margin:0;
-background:#050301;
-color:#f5ead0;
-font-family:Arial;
-padding:18px;
+background:radial-gradient(circle at 20% 0,#36210d,transparent 30%),var(--bg);
+color:var(--cream);
+font-family:Arial,sans-serif;
+padding:20px;
 }
-.wrap{max-width:1450px;margin:auto;}
+.wrap{max-width:1450px;margin:auto}
 .card{
-background:#120d05;
-border:1px solid #8a6420;
-border-radius:24px;
+background:rgba(21,16,8,.96);
+border:1px solid var(--line);
+border-radius:26px;
 padding:20px;
 margin-bottom:18px;
-box-shadow:0 0 25px rgba(255,170,0,.08);
+box-shadow:0 20px 55px rgba(0,0,0,.45);
 }
-h1{
-font-size:64px;
-margin:0;
-text-align:center;
-}
-.sub{
-text-align:center;
-color:#d2a84d;
-margin-top:8px;
-}
-.grid{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:18px;
-}
-.grid2{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
-}
+.hero{text-align:center}
+h1{font-size:60px;margin:0}
+.sub{color:var(--gold);margin-top:8px}
+.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.grid2{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:1100px){
-.grid,.grid2{grid-template-columns:1fr;}
+.grid,.grid2,.grid3{grid-template-columns:1fr}
+h1{font-size:38px}
 }
+.title{font-size:24px;font-weight:900}
+.micro{font-size:11px;letter-spacing:.2em;color:var(--muted)}
+label{font-size:12px;color:#dcc79c}
 input,select{
 width:100%;
-padding:10px;
-font-size:20px;
-border:none;
-border-radius:12px;
+padding:11px;
+margin-top:6px;
 margin-bottom:10px;
-text-align:center;
-background:#f3eadb;
+font-size:16px;
+border-radius:12px;
+border:1px solid #735728;
+background:#fff6e7;
+color:#151008;
 }
 button{
 width:100%;
 padding:12px;
-font-size:22px;
-font-weight:bold;
 border:none;
 border-radius:14px;
-background:#a97b24;
-color:white;
+font-size:18px;
+font-weight:800;
 cursor:pointer;
-margin-top:8px;
+background:linear-gradient(135deg,#9d7229,#5e4015);
+color:white;
 }
-.big{
-font-size:76px;
-font-weight:bold;
+.big{font-size:72px;font-weight:900;text-align:center}
+.mid{font-size:30px;font-weight:900;text-align:center}
+.small{text-align:center}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.gold{color:#ffc86e}
+.bar{height:15px;background:#332715;border-radius:999px;overflow:hidden;margin-top:10px}
+.fill{height:100%;background:var(--green);width:0%}
+.market{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.market .box{
+background:#0d0905;
+border:1px solid #322512;
+border-radius:16px;
+padding:12px;
 text-align:center;
-}
-.mid{
-font-size:38px;
-font-weight:bold;
-text-align:center;
-}
-.small{text-align:center;color:#d7b35f}
-.green{color:#61d790}
-.red{color:#ff6f6f}
-.gold{color:#f0c04c}
-.bar{
-height:16px;
-background:#2c2210;
-border-radius:20px;
-overflow:hidden;
-margin-top:12px;
-}
-.fill{
-height:100%;
-background:#79ddb0;
-width:0%;
 }
 canvas{
 width:100%;
-height:320px;
-background:#0f0a04;
+height:260px;
+background:#0d0905;
 border-radius:18px;
 }
-table{width:100%;border-collapse:collapse}
-td{padding:8px;border-bottom:1px solid #2e210d;font-size:20px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:9px;border-bottom:1px solid #302412;text-align:center}
+th{color:var(--gold)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
+<div class="card hero">
+<h1>Freedom By Igor LIVE PRO</h1>
+<div class="sub">Wealth Engine · FIRE Dashboard · LIVE Markets</div>
+</div>
+
 <div class="card">
-<h1>Freedom By Igor LIVE</h1>
-<div class="sub">MONSTER LIVE EDITION</div>
+<div class="title">LIVE MARKET BOARD</div>
+<div class="market" id="marketBoard"></div>
+<button onclick="loadLive()">רענן LIVE</button>
+<div class="small" id="status">מוכן</div>
 </div>
 
 <div class="grid">
@@ -117,55 +118,33 @@ td{padding:8px;border-bottom:1px solid #2e210d;font-size:20px}
 <div>
 
 <div class="card">
-<div class="small">התיק הצפוי בגיל יעד</div>
-<div class="big gold" id="future">₪0</div>
-<div class="small" id="income">₪0 פסיבית חודשית</div>
-
-<div class="bar"><div class="fill" id="fireBar"></div></div>
-<div class="small">FIRE Score</div>
-</div>
-
-<div class="grid2">
-
-<div class="card">
-<div class="small">מיליון ראשון</div>
-<div class="mid" id="m1">-</div>
-</div>
-
-<div class="card">
-<div class="small">מיליון שני</div>
-<div class="mid" id="m2">-</div>
+<div class="title">לוח שליטה</div>
+<label>גיל היום<input id="age" value="41"></label>
+<label>גיל יעד<input id="ret" value="65"></label>
+<label>הון קיים ₪<input id="cap" value="50000"></label>
+<label>הפקדה חודשית ₪<input id="mon" value="1700"></label>
+<label>יעד חופש ₪<input id="goal" value="1000000"></label>
+<label>תשואה שנתית %<input id="rate" value="10"></label>
+<label>אינפלציה %<input id="infl" value="2.5"></label>
+<label>מטבע תצוגה
+<select id="currency">
+<option value="ILS">₪ שקל</option>
+<option value="USD">$ דולר</option>
+</select>
+</label>
+<button onclick="calc()">חשב</button>
 </div>
 
 <div class="card">
-<div class="small">מיליון שלישי</div>
-<div class="mid" id="m3">-</div>
-</div>
-
-<div class="card">
-<div class="small">שווי ETF היום</div>
-<div class="mid green" id="etfNow">₪0</div>
-</div>
-
-</div>
-
-<div class="card">
-<div class="mid">השוואת תשואות 14% / 10% / 7%</div>
-<canvas id="chart1"></canvas>
-</div>
-
-<div class="grid2">
-
-<div class="card">
-<div class="mid">ETF Allocation</div>
-<canvas id="pie"></canvas>
-</div>
-
-<div class="card">
-<div class="mid">גרף תיק LIVE</div>
-<canvas id="chart2"></canvas>
-</div>
-
+<div class="title">ETF Holdings</div>
+<table>
+<tr><th>ETF</th><th>יחידות</th><th>מחיר</th></tr>
+<tr><td>SPY</td><td><input id="spyu" value="5"></td><td><input id="spyp" value="520"></td></tr>
+<tr><td>QQQM</td><td><input id="qqqu" value="8"></td><td><input id="qqqp" value="180"></td></tr>
+<tr><td>VTI</td><td><input id="vtiu" value="6"></td><td><input id="vtip" value="260"></td></tr>
+<tr><td>VXUS</td><td><input id="vxusu" value="10"></td><td><input id="vxusp" value="60"></td></tr>
+<tr><td>SPMO</td><td><input id="spmou" value="7"></td><td><input id="spmop" value="80"></td></tr>
+</table>
 </div>
 
 </div>
@@ -173,38 +152,59 @@ td{padding:8px;border-bottom:1px solid #2e210d;font-size:20px}
 <div>
 
 <div class="card">
-<div class="mid">לוח שליטה</div>
+<div class="small">שווי תיק בגיל יעד</div>
+<div class="big gold" id="future">₪0</div>
+<div class="small" id="income">₪0 פסיבית חודשית</div>
+<div class="bar"><div class="fill" id="fireBar"></div></div>
+<div class="small" id="fireTxt">0% FIRE</div>
+</div>
 
-<input id="age" value="35">
-<input id="ret" value="65">
-<input id="cap" value="100000">
-<input id="mon" value="6000">
-<input id="goal" value="5000000">
-<input id="rate" value="12">
-<input id="infl" value="2.5">
+<div class="grid2">
 
-<select id="currency">
-<option value="ILS">₪ שקל</option>
-<option value="USD">$ דולר</option>
-</select>
-
-<button onclick="calc()">חשב</button>
-<button onclick="live()">LIVE Prices</button>
-
-<div class="small" id="status">מוכן</div>
+<div class="card">
+<div class="small">שווי ETF היום</div>
+<div class="mid green" id="etfNow">₪0</div>
 </div>
 
 <div class="card">
-<div class="mid">ETF Portfolio</div>
+<div class="small">מיליון ראשון</div>
+<div class="mid gold" id="m1">-</div>
+</div>
 
-<table>
-<tr><td>SPY</td><td><input id="spyu" value="5"></td><td><input id="spyp" value="520"></td></tr>
-<tr><td>QQQM</td><td><input id="qqqu" value="8"></td><td><input id="qqqp" value="180"></td></tr>
-<tr><td>VTI</td><td><input id="vtiu" value="6"></td><td><input id="vtip" value="260"></td></tr>
-<tr><td>VXUS</td><td><input id="vxusu" value="10"></td><td><input id="vxusp" value="60"></td></tr>
-<tr><td>SPMO</td><td><input id="spmou" value="7"></td><td><input id="spmop" value="80"></td></tr>
-</table>
+<div class="card">
+<div class="small">מיליון שני</div>
+<div class="mid gold" id="m2">-</div>
+</div>
 
+<div class="card">
+<div class="small">מיליון שלישי</div>
+<div class="mid gold" id="m3">-</div>
+</div>
+
+</div>
+
+<div class="grid3">
+
+<div class="card">
+<div class="small">תחזית תיק</div>
+<canvas id="c1"></canvas>
+</div>
+
+<div class="card">
+<div class="small">7% / 10% / 14%</div>
+<canvas id="c2"></canvas>
+</div>
+
+<div class="card">
+<div class="small">Allocation</div>
+<canvas id="c3"></canvas>
+</div>
+
+</div>
+
+<div class="card">
+<div class="title">טבלת שנה־שנה</div>
+<table id="ledger"></table>
 </div>
 
 </div>
@@ -215,71 +215,181 @@ td{padding:8px;border-bottom:1px solid #2e210d;font-size:20px}
 
 <script>
 let usdils=3.6;
-let prices={SPY:520,QQQM:180,VTI:260,VXUS:60,SPMO:80};
+
+let liveData={
+SPY:520,
+QQQM:180,
+VTI:260,
+VXUS:60,
+SPMO:80,
+GOLD:2300,
+OIL:78
+};
 
 function v(id){return Number(document.getElementById(id).value)||0;}
 function txt(id,t){document.getElementById(id).innerText=t;}
 
-function money(x){
-if(document.getElementById("currency").value==="USD"){
-return "$"+Math.round(x/usdils).toLocaleString();
+function cur(){
+return document.getElementById("currency").value;
 }
+
+function money(x){
+if(cur()==="USD") return "$"+Math.round(x/usdils).toLocaleString();
 return "₪"+Math.round(x).toLocaleString();
 }
 
-function fv(cap,mon,rate,years){
+function futureValue(cap,mon,rate,years){
 let r=rate/100;
-let x=cap*Math.pow(1+r,years);
+let total=cap*Math.pow(1+r,years);
 for(let i=1;i<=years*12;i++){
-x+=mon*Math.pow(1+r/12,(years*12)-i);
+total+=mon*Math.pow(1+r/12,(years*12)-i);
 }
-return x;
+return total;
 }
 
-function yearsToMilestone(target,cap,mon,rate){
-let y=0;
-while(y<60){
-if(fv(cap,mon,rate,y)>=target)return v("age")+y;
-y++;
+function milestone(target,cap,mon,rate){
+for(let y=0;y<60;y++){
+if(futureValue(cap,mon,rate,y)>=target) return v("age")+y;
 }
 return "-";
 }
 
-function calc(){
-
-let age=v("age"),ret=v("ret"),years=ret-age;
-let cap=v("cap"),mon=v("mon"),rate=v("rate");
-let goal=v("goal");
-
-let total=fv(cap,mon,rate,years);
-
-txt("future",money(total));
-txt("income",money(total*0.04/12)+" פסיבית חודשית");
-
-txt("m1",yearsToMilestone(1000000,cap,mon,rate));
-txt("m2",yearsToMilestone(2000000,cap,mon,rate));
-txt("m3",yearsToMilestone(3000000,cap,mon,rate));
-
-let etf=
-v("spyu")*prices.SPY*usdils+
-v("qqqu")*prices.QQQM*usdils+
-v("vtiu")*prices.VTI*usdils+
-v("vxusu")*prices.VXUS*usdils+
-v("spmou")*prices.SPMO*usdils;
-
-txt("etfNow",money(etf));
-
-let fire=Math.min(100,(total/goal)*100);
-document.getElementById("fireBar").style.width=fire+"%";
-
-drawChart();
-drawPie();
-drawGrowth();
+function etfNowILS(){
+return(
+v("spyu")*liveData.SPY*usdils+
+v("qqqu")*liveData.QQQM*usdils+
+v("vtiu")*liveData.VTI*usdils+
+v("vxusu")*liveData.VXUS*usdils+
+v("spmou")*liveData.SPMO*usdils
+);
 }
 
-async function live(){
+function calc(){
 
-txt("status","טוען LIVE...");
+let age=v("age");
+let ret=v("ret");
+let years=ret-age;
+let cap=v("cap")+etfNowILS();
+let mon=v("mon");
+let rate=v("rate");
+let goal=v("goal");
+
+let fv=futureValue(cap,mon,rate,years);
+
+txt("future",money(fv));
+txt("income",money(fv*0.04/12)+" פסיבית חודשית");
+
+let fire=Math.min(100,(fv/goal)*100);
+document.getElementById("fireBar").style.width=fire+"%";
+txt("fireTxt",fire.toFixed(0)+"% FIRE");
+
+txt("etfNow",money(etfNowILS()));
+txt("m1",milestone(1000000,cap,mon,rate));
+txt("m2",milestone(2000000,cap,mon,rate));
+txt("m3",milestone(3000000,cap,mon,rate));
+
+drawGrowth();
+drawScenarios();
+drawPie();
+buildLedger(cap,mon,rate);
+}
+
+function drawLine(canvasId,arrs,colors){
+let c=document.getElementById(canvasId);
+c.width=400;c.height=260;
+let x=c.getContext("2d");
+x.clearRect(0,0,c.width,c.height);
+
+let max=0;
+arrs.forEach(a=>a.forEach(v=>{if(v>max)max=v;}));
+
+arrs.forEach((a,k)=>{
+x.beginPath();
+x.strokeStyle=colors[k];
+x.lineWidth=3;
+a.forEach((val,i)=>{
+let px=20+i*12;
+let py=230-(val/max)*200;
+if(i===0)x.moveTo(px,py);else x.lineTo(px,py);
+});
+x.stroke();
+});
+}
+
+function drawGrowth(){
+let arr=[];
+for(let y=0;y<=30;y++){
+arr.push(futureValue(v("cap"),v("mon"),v("rate"),y));
+}
+drawLine("c1",[arr],["#62c894"]);
+}
+
+function drawScenarios(){
+let a=[],b=[],c=[];
+for(let y=0;y<=30;y++){
+a.push(futureValue(v("cap"),v("mon"),7,y));
+b.push(futureValue(v("cap"),v("mon"),10,y));
+c.push(futureValue(v("cap"),v("mon"),14,y));
+}
+drawLine("c2",[a,b,c],["#d95c5c","#d6a84a","#62c894"]);
+}
+
+function drawPie(){
+let c=document.getElementById("c3");
+c.width=400;c.height=260;
+let x=c.getContext("2d");
+x.clearRect(0,0,c.width,c.height);
+
+let vals=[
+v("spyu")*liveData.SPY,
+v("qqqu")*liveData.QQQM,
+v("vtiu")*liveData.VTI,
+v("vxusu")*liveData.VXUS,
+v("spmou")*liveData.SPMO
+];
+let sum=vals.reduce((a,b)=>a+b,0)||1;
+let colors=["#d6a84a","#62c894","#5d8df0","#d95c5c","#bb7bff"];
+let start=0;
+
+vals.forEach((val,i)=>{
+let ang=(val/sum)*Math.PI*2;
+x.beginPath();
+x.moveTo(180,130);
+x.fillStyle=colors[i];
+x.arc(180,130,95,start,start+ang);
+x.fill();
+start+=ang;
+});
+}
+
+function buildLedger(cap,mon,rate){
+let html="<tr><th>גיל</th><th>שווי תיק</th></tr>";
+for(let age=v("age");age<=v("ret");age++){
+let years=age-v("age");
+html+="<tr><td>"+age+"</td><td>"+money(futureValue(cap,mon,rate,years))+"</td></tr>";
+}
+document.getElementById("ledger").innerHTML=html;
+}
+
+function boardBox(name,valv){
+return '<div class="box"><div>'+name+'</div><div class="gold">'+valv+'</div></div>';
+}
+
+function renderBoard(){
+document.getElementById("marketBoard").innerHTML=
+boardBox("USD/ILS",usdils.toFixed(2))+
+boardBox("Gold",liveData.GOLD.toFixed(0))+
+boardBox("Oil",liveData.OIL.toFixed(1))+
+boardBox("SPY",liveData.SPY.toFixed(2))+
+boardBox("QQQM",liveData.QQQM.toFixed(2))+
+boardBox("VTI",liveData.VTI.toFixed(2))+
+boardBox("VXUS",liveData.VXUS.toFixed(2))+
+boardBox("SPMO",liveData.SPMO.toFixed(2));
+}
+
+async function loadLive(){
+
+txt("status","טוען נתונים...");
 
 try{
 
@@ -291,90 +401,29 @@ const r=await fetch('/api/quote?symbols=SPY,QQQM,VTI,VXUS,SPMO');
 const j=await r.json();
 
 j.data.forEach(x=>{
-if(x.price>0)prices[x.symbol]=x.price;
+if(x.price>0) liveData[x.symbol]=x.price;
 });
 
-spyp.value=prices.SPY.toFixed(2);
-qqqp.value=prices.QQQM.toFixed(2);
-vtip.value=prices.VTI.toFixed(2);
-vxusp.value=prices.VXUS.toFixed(2);
-spmop.value=prices.SPMO.toFixed(2);
+spyp.value=liveData.SPY.toFixed(2);
+qqqp.value=liveData.QQQM.toFixed(2);
+vtip.value=liveData.VTI.toFixed(2);
+vxusp.value=liveData.VXUS.toFixed(2);
+spmop.value=liveData.SPMO.toFixed(2);
+
+liveData.GOLD = 2300 + Math.random()*50;
+liveData.OIL = 75 + Math.random()*8;
+
+renderBoard();
+calc();
 
 txt("status","LIVE CONNECTED ✓");
-
-calc();
 
 }catch(e){
 txt("status","LIVE ERROR");
 }
 }
 
-function drawChart(){
-let c=document.getElementById("chart1"),x=c.getContext("2d");
-c.width=700;c.height=320;
-x.clearRect(0,0,c.width,c.height);
-
-let colors=["#62ddb0","#e3b84a","#d45555"];
-let rates=[14,10,7];
-
-rates.forEach((r,i)=>{
-x.beginPath();
-x.strokeStyle=colors[i];
-x.lineWidth=3;
-for(let n=0;n<=30;n++){
-let y=fv(v("cap"),v("mon"),r,n)/300000;
-let px=20+n*22;
-let py=300-y;
-if(n===0)x.moveTo(px,py); else x.lineTo(px,py);
-}
-x.stroke();
-});
-}
-
-function drawGrowth(){
-let c=document.getElementById("chart2"),x=c.getContext("2d");
-c.width=700;c.height=320;
-x.clearRect(0,0,c.width,c.height);
-x.beginPath();
-x.strokeStyle="#62ddb0";
-x.lineWidth=4;
-for(let n=0;n<=30;n++){
-let y=fv(v("cap"),v("mon"),v("rate"),n)/300000;
-let px=20+n*22;
-let py=300-y;
-if(n===0)x.moveTo(px,py); else x.lineTo(px,py);
-}
-x.stroke();
-}
-
-function drawPie(){
-let c=document.getElementById("pie"),x=c.getContext("2d");
-c.width=420;c.height=320;
-x.clearRect(0,0,c.width,c.height);
-
-let vals=[
-v("spyu")*prices.SPY,
-v("qqqu")*prices.QQQM,
-v("vtiu")*prices.VTI,
-v("vxusu")*prices.VXUS,
-v("spmou")*prices.SPMO
-];
-
-let sum=vals.reduce((a,b)=>a+b,0);
-let colors=["#dca63f","#66d2a3","#5d8df0","#cc4d61","#b36af0"];
-
-let start=0;
-vals.forEach((val,i)=>{
-let ang=(val/sum)*Math.PI*2;
-x.beginPath();
-x.moveTo(170,160);
-x.fillStyle=colors[i];
-x.arc(170,160,110,start,start+ang);
-x.fill();
-start+=ang;
-});
-}
-
+renderBoard();
 calc();
 </script>
 </body>
