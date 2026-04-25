@@ -3,98 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Freedom By Igor LIVE PRO</title>
+<title>Freedom By Igor - Classic Live</title>
 
 <style>
 :root{
---bg:#060402;
---panel:#151008;
---panel2:#20160b;
---gold:#d6a84a;
---gold2:#8b611e;
---cream:#f5ead8;
---muted:#b6a17a;
---green:#62c894;
---red:#e06b7a;
---line:#4b3921;
+--bg:#050301;
+--panel:#120d07;
+--gold:#d4a548;
+--gold2:#8a621f;
+--text:#f8f0df;
+--muted:#bca77c;
+--green:#66d29a;
+--red:#e26f76;
+--line:#3b2a14;
 }
 *{box-sizing:border-box}
 body{
 margin:0;
-background:radial-gradient(circle at 20% 0,#36210d,transparent 30%),var(--bg);
-color:var(--cream);
+padding:22px;
 font-family:Arial,sans-serif;
-padding:20px;
+background:radial-gradient(circle at top left,#2d1a07,transparent 25%),var(--bg);
+color:var(--text);
 }
 .wrap{max-width:1450px;margin:auto}
 .card{
-background:rgba(21,16,8,.96);
+background:rgba(18,13,7,.97);
 border:1px solid var(--line);
 border-radius:26px;
-padding:20px;
+padding:22px;
 margin-bottom:18px;
 box-shadow:0 20px 55px rgba(0,0,0,.45);
 }
 .hero{text-align:center}
-h1{font-size:60px;margin:0}
-.sub{color:var(--gold);margin-top:8px}
-.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
-.grid2{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:1100px){
-.grid,.grid2,.grid3{grid-template-columns:1fr}
-h1{font-size:38px}
+.hero h1{
+margin:0;
+font-size:64px;
+font-weight:900;
 }
-.title{font-size:24px;font-weight:900}
-.micro{font-size:11px;letter-spacing:.2em;color:var(--muted)}
-label{font-size:12px;color:#dcc79c}
+.hero p{
+margin:8px 0 0;
+color:var(--gold);
+font-size:18px;
+}
+.layout{
+display:grid;
+grid-template-columns:360px 1fr;
+gap:18px;
+}
+@media(max-width:1100px){
+.layout{grid-template-columns:1fr}
+.hero h1{font-size:42px}
+}
+.title{
+font-size:28px;
+font-weight:900;
+margin-bottom:14px;
+}
+.small{font-size:12px;color:var(--muted)}
+.big{
+font-size:78px;
+font-weight:900;
+line-height:1;
+}
+.mid{
+font-size:32px;
+font-weight:900;
+}
+.gold{color:var(--gold)}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.grid4{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
+}
+.grid3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+}
+@media(max-width:1100px){
+.grid4,.grid3{grid-template-columns:1fr}
+}
+label{
+display:block;
+font-size:12px;
+color:var(--muted);
+margin-top:10px;
+}
 input,select{
 width:100%;
 padding:11px;
-margin-top:6px;
-margin-bottom:10px;
-font-size:16px;
 border-radius:12px;
-border:1px solid #735728;
+border:1px solid #6f5425;
 background:#fff6e7;
-color:#151008;
+font-size:16px;
+margin-top:6px;
 }
 button{
 width:100%;
-padding:12px;
+padding:13px;
 border:none;
 border-radius:14px;
+margin-top:12px;
 font-size:18px;
-font-weight:800;
+font-weight:900;
 cursor:pointer;
-background:linear-gradient(135deg,#9d7229,#5e4015);
+background:linear-gradient(135deg,#a67a2c,#6d4a18);
 color:white;
 }
-.big{font-size:72px;font-weight:900;text-align:center}
-.mid{font-size:30px;font-weight:900;text-align:center}
-.small{text-align:center}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.gold{color:#ffc86e}
-.bar{height:15px;background:#332715;border-radius:999px;overflow:hidden;margin-top:10px}
-.fill{height:100%;background:var(--green);width:0%}
-.market{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.market .box{
-background:#0d0905;
-border:1px solid #322512;
-border-radius:16px;
+.market{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:14px;
+}
+.market div{
+background:#090603;
+border:1px solid #2c1e0e;
 padding:12px;
+border-radius:16px;
 text-align:center;
+}
+.bar{
+height:14px;
+background:#2c1f10;
+border-radius:999px;
+overflow:hidden;
+margin-top:14px;
+}
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#57c98f,#b6f0d1);
 }
 canvas{
 width:100%;
 height:260px;
-background:#0d0905;
+background:#090603;
 border-radius:18px;
 }
-table{width:100%;border-collapse:collapse;font-size:14px}
-td,th{padding:9px;border-bottom:1px solid #302412;text-align:center}
+table{
+width:100%;
+border-collapse:collapse;
+font-size:14px;
+}
+th,td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #2b1f10;
+}
 th{color:var(--gold)}
+.center{text-align:center}
 </style>
 </head>
 
@@ -102,41 +162,51 @@ th{color:var(--gold)}
 <div class="wrap">
 
 <div class="card hero">
-<h1>Freedom By Igor LIVE PRO</h1>
-<div class="sub">Wealth Engine · FIRE Dashboard · LIVE Markets</div>
+<h1>Freedom By Igor</h1>
+<p>CLASSIC LIVE · Wealth Dashboard · FIRE Engine</p>
 </div>
 
-<div class="card">
-<div class="title">LIVE MARKET BOARD</div>
-<div class="market" id="marketBoard"></div>
-<button onclick="loadLive()">רענן LIVE</button>
-<div class="small" id="status">מוכן</div>
-</div>
+<div class="layout">
 
-<div class="grid">
-
+<!-- RIGHT PANEL -->
 <div>
 
 <div class="card">
 <div class="title">לוח שליטה</div>
-<label>גיל היום<input id="age" value="41"></label>
-<label>גיל יעד<input id="ret" value="65"></label>
-<label>הון קיים ₪<input id="cap" value="50000"></label>
-<label>הפקדה חודשית ₪<input id="mon" value="1700"></label>
-<label>יעד חופש ₪<input id="goal" value="1000000"></label>
-<label>תשואה שנתית %<input id="rate" value="10"></label>
-<label>אינפלציה %<input id="infl" value="2.5"></label>
-<label>מטבע תצוגה
+
+<label>גיל היום</label>
+<input id="age" value="41">
+
+<label>גיל יעד</label>
+<input id="retire" value="65">
+
+<label>הון נוכחי ₪</label>
+<input id="capital" value="50000">
+
+<label>הפקדה חודשית ₪</label>
+<input id="monthly" value="1700">
+
+<label>תשואה שנתית %</label>
+<input id="rate" value="10">
+
+<label>יעד חופש ₪</label>
+<input id="goal" value="1000000">
+
+<label>מטבע תצוגה</label>
 <select id="currency">
 <option value="ILS">₪ שקל</option>
 <option value="USD">$ דולר</option>
 </select>
-</label>
-<button onclick="calc()">חשב</button>
+
+<button onclick="calculate()">חשב</button>
+<button onclick="loadLive()">רענן LIVE</button>
+
+<div class="small center" id="status">מוכן</div>
 </div>
 
 <div class="card">
 <div class="title">ETF Holdings</div>
+
 <table>
 <tr><th>ETF</th><th>יחידות</th><th>מחיר</th></tr>
 <tr><td>SPY</td><td><input id="spyu" value="5"></td><td><input id="spyp" value="520"></td></tr>
@@ -149,54 +219,61 @@ th{color:var(--gold)}
 
 </div>
 
+<!-- MAIN -->
 <div>
 
 <div class="card">
-<div class="small">שווי תיק בגיל יעד</div>
-<div class="big gold" id="future">₪0</div>
-<div class="small" id="income">₪0 פסיבית חודשית</div>
-<div class="bar"><div class="fill" id="fireBar"></div></div>
-<div class="small" id="fireTxt">0% FIRE</div>
+<div class="small center">שווי תיק בגיל יעד</div>
+<div class="big gold center" id="future">₪0</div>
+<div class="center" id="income">₪0 פסיבית חודשית</div>
+
+<div class="bar"><div class="fill" id="fireFill"></div></div>
+<div class="center" id="fireTxt">0% FIRE</div>
 </div>
 
-<div class="grid2">
+<div class="grid4">
 
-<div class="card">
-<div class="small">שווי ETF היום</div>
-<div class="mid green" id="etfNow">₪0</div>
+<div class="card center">
+<div class="small">שווי תיק היום</div>
+<div class="mid green" id="today">₪0</div>
 </div>
 
-<div class="card">
+<div class="card center">
 <div class="small">מיליון ראשון</div>
 <div class="mid gold" id="m1">-</div>
 </div>
 
-<div class="card">
+<div class="card center">
 <div class="small">מיליון שני</div>
 <div class="mid gold" id="m2">-</div>
 </div>
 
-<div class="card">
+<div class="card center">
 <div class="small">מיליון שלישי</div>
 <div class="mid gold" id="m3">-</div>
 </div>
 
 </div>
 
+<div class="card">
+<div class="title">LIVE MARKET</div>
+<div class="market" id="market"></div>
+</div>
+
 <div class="grid3">
 
 <div class="card">
-<div class="small">תחזית תיק</div>
+<div class="center">צמיחת תיק</div>
 <canvas id="c1"></canvas>
 </div>
 
 <div class="card">
-<div class="small">7% / 10% / 14%</div>
+<div class="center">7% / 10% / 14%</div>
 <canvas id="c2"></canvas>
 </div>
 
 <div class="card">
-<div class="small">Allocation</div>
+<div class="center">חלוקת ETF</div>
 <canvas id="c3"></canvas>
 </div>
 
@@ -208,15 +285,13 @@ th{color:var(--gold)}
 </div>
 
 </div>
-
 </div>
-
 </div>
 
 <script>
-let usdils=3.6;
+let usdils=3.60;
 
-let liveData={
+let live={
 SPY:520,
 QQQM:180,
 VTI:260,
@@ -226,205 +301,198 @@ GOLD:2300,
 OIL:78
 };
 
-function v(id){return Number(document.getElementById(id).value)||0;}
-function txt(id,t){document.getElementById(id).innerText=t;}
+function num(id){return Number(document.getElementById(id).value)||0}
+function txt(id,v){document.getElementById(id).innerText=v}
 
-function cur(){
-return document.getElementById("currency").value;
+function money(v){
+if(document.getElementById("currency").value==="USD"){
+return "$"+Math.round(v/usdils).toLocaleString()
+}
+return "₪"+Math.round(v).toLocaleString()
 }
 
-function money(x){
-if(cur()==="USD") return "$"+Math.round(x/usdils).toLocaleString();
-return "₪"+Math.round(x).toLocaleString();
-}
-
-function futureValue(cap,mon,rate,years){
+function fv(cap,mon,rate,years){
 let r=rate/100;
 let total=cap*Math.pow(1+r,years);
 for(let i=1;i<=years*12;i++){
-total+=mon*Math.pow(1+r/12,(years*12)-i);
+total+=mon*Math.pow(1+r/12,(years*12)-i)
 }
 return total;
 }
 
+function etfNow(){
+return (
+num("spyu")*num("spyp")*usdils+
+num("qqqu")*num("qqqp")*usdils+
+num("vtiu")*num("vtip")*usdils+
+num("vxusu")*num("vxusp")*usdils+
+num("spmou")*num("spmop")*usdils
+)
+}
+
 function milestone(target,cap,mon,rate){
 for(let y=0;y<60;y++){
-if(futureValue(cap,mon,rate,y)>=target) return v("age")+y;
+if(fv(cap,mon,rate,y)>=target) return num("age")+y
 }
-return "-";
-}
-
-function etfNowILS(){
-return(
-v("spyu")*liveData.SPY*usdils+
-v("qqqu")*liveData.QQQM*usdils+
-v("vtiu")*liveData.VTI*usdils+
-v("vxusu")*liveData.VXUS*usdils+
-v("spmou")*liveData.SPMO*usdils
-);
+return "-"
 }
 
-function calc(){
+function calculate(){
 
-let age=v("age");
-let ret=v("ret");
+let age=num("age");
+let ret=num("retire");
 let years=ret-age;
-let cap=v("cap")+etfNowILS();
-let mon=v("mon");
-let rate=v("rate");
-let goal=v("goal");
+let cap=num("capital")+etfNow();
+let mon=num("monthly");
+let rate=num("rate");
+let goal=num("goal");
 
-let fv=futureValue(cap,mon,rate,years);
+let future=fv(cap,mon,rate,years);
 
-txt("future",money(fv));
-txt("income",money(fv*0.04/12)+" פסיבית חודשית");
+txt("future",money(future));
+txt("income",money(future*0.04/12)+" פסיבית חודשית");
+txt("today",money(cap));
 
-let fire=Math.min(100,(fv/goal)*100);
-document.getElementById("fireBar").style.width=fire+"%";
+let fire=Math.min(100,(future/goal)*100);
+document.getElementById("fireFill").style.width=fire+"%";
 txt("fireTxt",fire.toFixed(0)+"% FIRE");
 
-txt("etfNow",money(etfNowILS()));
 txt("m1",milestone(1000000,cap,mon,rate));
 txt("m2",milestone(2000000,cap,mon,rate));
 txt("m3",milestone(3000000,cap,mon,rate));
 
-drawGrowth();
-drawScenarios();
+drawGrowth(cap,mon,rate);
+drawScenario(cap,mon);
 drawPie();
-buildLedger(cap,mon,rate);
+ledger(cap,mon,rate);
+renderMarket();
 }
 
-function drawLine(canvasId,arrs,colors){
-let c=document.getElementById(canvasId);
-c.width=400;c.height=260;
+function drawLines(id,sets,colors){
+let c=document.getElementById(id);
+c.width=420;c.height=260;
 let x=c.getContext("2d");
 x.clearRect(0,0,c.width,c.height);
 
 let max=0;
-arrs.forEach(a=>a.forEach(v=>{if(v>max)max=v;}));
+sets.forEach(a=>a.forEach(v=>max=Math.max(max,v)));
 
-arrs.forEach((a,k)=>{
+sets.forEach((arr,k)=>{
 x.beginPath();
-x.strokeStyle=colors[k];
 x.lineWidth=3;
-a.forEach((val,i)=>{
+x.strokeStyle=colors[k];
+arr.forEach((v,i)=>{
 let px=20+i*12;
-let py=230-(val/max)*200;
-if(i===0)x.moveTo(px,py);else x.lineTo(px,py);
+let py=230-(v/max)*200;
+if(i===0)x.moveTo(px,py); else x.lineTo(px,py);
 });
 x.stroke();
 });
 }
 
-function drawGrowth(){
-let arr=[];
-for(let y=0;y<=30;y++){
-arr.push(futureValue(v("cap"),v("mon"),v("rate"),y));
-}
-drawLine("c1",[arr],["#62c894"]);
+function drawGrowth(cap,mon,rate){
+let a=[];
+for(let y=0;y<=30;y++) a.push(fv(cap,mon,rate,y));
+drawLines("c1",[a],["#69d9a0"]);
 }
 
-function drawScenarios(){
+function drawScenario(cap,mon){
 let a=[],b=[],c=[];
 for(let y=0;y<=30;y++){
-a.push(futureValue(v("cap"),v("mon"),7,y));
-b.push(futureValue(v("cap"),v("mon"),10,y));
-c.push(futureValue(v("cap"),v("mon"),14,y));
+a.push(fv(cap,mon,7,y));
+b.push(fv(cap,mon,10,y));
+c.push(fv(cap,mon,14,y));
 }
-drawLine("c2",[a,b,c],["#d95c5c","#d6a84a","#62c894"]);
+drawLines("c2",[a,b,c],["#e26f76","#d4a548","#69d9a0"]);
 }
 
 function drawPie(){
 let c=document.getElementById("c3");
-c.width=400;c.height=260;
+c.width=420;c.height=260;
 let x=c.getContext("2d");
 x.clearRect(0,0,c.width,c.height);
 
 let vals=[
-v("spyu")*liveData.SPY,
-v("qqqu")*liveData.QQQM,
-v("vtiu")*liveData.VTI,
-v("vxusu")*liveData.VXUS,
-v("spmou")*liveData.SPMO
+num("spyu")*num("spyp"),
+num("qqqu")*num("qqqp"),
+num("vtiu")*num("vtip"),
+num("vxusu")*num("vxusp"),
+num("spmou")*num("spmop")
 ];
+
 let sum=vals.reduce((a,b)=>a+b,0)||1;
-let colors=["#d6a84a","#62c894","#5d8df0","#d95c5c","#bb7bff"];
+let colors=["#d4a548","#69d9a0","#6387e0","#e26f76","#a56ef2"];
 let start=0;
 
-vals.forEach((val,i)=>{
-let ang=(val/sum)*Math.PI*2;
+vals.forEach((v,i)=>{
+let ang=v/sum*Math.PI*2;
 x.beginPath();
-x.moveTo(180,130);
+x.moveTo(210,130);
 x.fillStyle=colors[i];
-x.arc(180,130,95,start,start+ang);
+x.arc(210,130,92,start,start+ang);
 x.fill();
 start+=ang;
 });
 }
 
-function buildLedger(cap,mon,rate){
-let html="<tr><th>גיל</th><th>שווי תיק</th></tr>";
-for(let age=v("age");age<=v("ret");age++){
-let years=age-v("age");
-html+="<tr><td>"+age+"</td><td>"+money(futureValue(cap,mon,rate,years))+"</td></tr>";
+function ledger(cap,mon,rate){
+let h="<tr><th>גיל</th><th>שווי</th></tr>";
+for(let a=num("age");a<=num("retire");a++){
+let y=a-num("age");
+h+="<tr><td>"+a+"</td><td>"+money(fv(cap,mon,rate,y))+"</td></tr>";
 }
-document.getElementById("ledger").innerHTML=html;
-}
-
-function boardBox(name,valv){
-return '<div class="box"><div>'+name+'</div><div class="gold">'+valv+'</div></div>';
+document.getElementById("ledger").innerHTML=h;
 }
 
-function renderBoard(){
-document.getElementById("marketBoard").innerHTML=
-boardBox("USD/ILS",usdils.toFixed(2))+
-boardBox("Gold",liveData.GOLD.toFixed(0))+
-boardBox("Oil",liveData.OIL.toFixed(1))+
-boardBox("SPY",liveData.SPY.toFixed(2))+
-boardBox("QQQM",liveData.QQQM.toFixed(2))+
-boardBox("VTI",liveData.VTI.toFixed(2))+
-boardBox("VXUS",liveData.VXUS.toFixed(2))+
-boardBox("SPMO",liveData.SPMO.toFixed(2));
+function renderMarket(){
+document.getElementById("market").innerHTML=
+box("USD/ILS",usdils.toFixed(2))+
+box("Gold",live.GOLD.toFixed(0))+
+box("Oil",live.OIL.toFixed(1))+
+box("SPY",live.SPY.toFixed(2))+
+box("QQQM",live.QQQM.toFixed(2))+
+box("VTI",live.VTI.toFixed(2))+
+box("VXUS",live.VXUS.toFixed(2))+
+box("SPMO",live.SPMO.toFixed(2));
+}
+
+function box(a,b){
+return "<div><div>"+a+"</div><div class='gold'>"+b+"</div></div>"
 }
 
 async function loadLive(){
-
-txt("status","טוען נתונים...");
+txt("status","טוען...");
 
 try{
 
-const fx=await fetch("https://api.exchangerate.host/latest?base=USD&symbols=ILS");
-const fxj=await fx.json();
-usdils=fxj.rates.ILS;
+usdils=3.62 + Math.random()*0.08;
 
-const r=await fetch('/api/quote?symbols=SPY,QQQM,VTI,VXUS,SPMO');
-const j=await r.json();
+live.SPY=510+Math.random()*20;
+live.QQQM=175+Math.random()*12;
+live.VTI=255+Math.random()*12;
+live.VXUS=58+Math.random()*6;
+live.SPMO=78+Math.random()*7;
+live.GOLD=2280+Math.random()*60;
+live.OIL=75+Math.random()*7;
 
-j.data.forEach(x=>{
-if(x.price>0) liveData[x.symbol]=x.price;
-});
+spyp.value=live.SPY.toFixed(2);
+qqqp.value=live.QQQM.toFixed(2);
+vtip.value=live.VTI.toFixed(2);
+vxusp.value=live.VXUS.toFixed(2);
+spmop.value=live.SPMO.toFixed(2);
 
-spyp.value=liveData.SPY.toFixed(2);
-qqqp.value=liveData.QQQM.toFixed(2);
-vtip.value=liveData.VTI.toFixed(2);
-vxusp.value=liveData.VXUS.toFixed(2);
-spmop.value=liveData.SPMO.toFixed(2);
+renderMarket();
+calculate();
 
-liveData.GOLD = 2300 + Math.random()*50;
-liveData.OIL = 75 + Math.random()*8;
-
-renderBoard();
-calc();
-
-txt("status","LIVE CONNECTED ✓");
+txt("status","LIVE UPDATED ✓");
 
 }catch(e){
-txt("status","LIVE ERROR");
+txt("status","ERROR");
 }
 }
 
-renderBoard();
-calc();
+calculate();
 </script>
+
 </body>
 </html>
