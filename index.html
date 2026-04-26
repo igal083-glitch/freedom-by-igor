@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Freedom By Igor V2 Portfolio Terminal</title>
+<title>Freedom By Igor V2.1</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
-:root{
---bg:#050301;--panel:#120d07;--gold:#d4a548;--text:#f8f0df;--muted:#bca77c;
---green:#66d29a;--red:#e26f76;--line:#3b2a14;--cream:#fff6e7;
-}
+:root{--bg:#050301;--panel:#120d07;--gold:#d4a548;--text:#f8f0df;--muted:#bca77c;--green:#66d29a;--red:#e26f76;--line:#3b2a14;--cream:#fff6e7}
 *{box-sizing:border-box}
 body{margin:0;padding:22px;font-family:Arial,sans-serif;background:radial-gradient(circle at top left,#2d1a07,transparent 25%),var(--bg);color:var(--text)}
 .wrap{max-width:1450px;margin:auto}
@@ -18,11 +14,13 @@ body{margin:0;padding:22px;font-family:Arial,sans-serif;background:radial-gradie
 .hero{text-align:center}.hero h1{margin:0;font-size:58px}.hero p{color:var(--gold)}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:1000px){.grid4,.grid2{grid-template-columns:1fr}.hero h1{font-size:38px}}
+.market{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.market div{background:#090603;border:1px solid #2c1e0e;border-radius:16px;padding:12px;text-align:center}
+@media(max-width:1000px){.grid4,.grid2,.market{grid-template-columns:1fr}.hero h1{font-size:38px}}
 .title{font-size:26px;font-weight:900;margin-bottom:14px}.small{font-size:12px;color:var(--muted)}
 .big{font-size:54px;font-weight:900}.mid{font-size:30px;font-weight:900}
 .gold{color:var(--gold)}.green{color:var(--green)}.red{color:var(--red)}.center{text-align:center}
-input,select{width:100%;padding:10px;border-radius:12px;border:1px solid #6f5425;background:var(--cream);font-size:15px;text-align:center}
+input{width:100%;padding:10px;border-radius:12px;border:1px solid #6f5425;background:var(--cream);font-size:15px;text-align:center}
 button{padding:13px;border:0;border-radius:14px;font-size:17px;font-weight:900;background:linear-gradient(135deg,#a67a2c,#6d4a18);color:white;cursor:pointer}
 table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:10px;text-align:center;border-bottom:1px solid #2b1f10}th{color:var(--gold)}
 canvas{background:#090603;border-radius:18px;padding:12px;max-height:310px}
@@ -31,13 +29,19 @@ label{font-size:12px;color:var(--muted)}
 .bar{height:14px;background:#2c1f10;border-radius:999px;overflow:hidden;margin-top:12px}.fill{height:100%;width:0;background:linear-gradient(90deg,#57c98f,#b6f0d1)}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 
 <div class="card hero">
-<h1>Freedom By Igor V2</h1>
-<p>Portfolio Terminal · LIVE Prices · P&L · FIRE Engine</p>
+<h1>Freedom By Igor V2.1</h1>
+<p>Portfolio Terminal · LIVE Market · P&L · FIRE Engine</p>
+</div>
+
+<div class="card">
+<div class="title">LIVE MARKET</div>
+<div class="market" id="market"></div>
+<button onclick="loadLive()" style="margin-top:14px;width:100%">רענן LIVE</button>
+<div id="status" class="small center" style="margin-top:10px">מוכן</div>
 </div>
 
 <div class="grid4">
@@ -56,20 +60,13 @@ label{font-size:12px;color:var(--muted)}
 <label>תשואה שנתית %<input id="rate" value="10"></label>
 <label>יעד חופש ₪<input id="goal" value="1000000"></label>
 </div>
-<div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<button onclick="loadLive()">רענן LIVE</button>
-<button onclick="calculate()">חשב</button>
-</div>
-<div id="status" class="small center" style="margin-top:10px">מוכן</div>
 </div>
 
 <div class="card">
 <div class="title">ETF Holdings</div>
 <table>
 <thead>
-<tr>
-<th>ETF</th><th>Units</th><th>Avg Cost $</th><th>Live $</th><th>Value ₪</th><th>Value $</th><th>P&L ₪</th><th>P&L $</th><th>%</th>
-</tr>
+<tr><th>ETF</th><th>Units</th><th>Avg Cost $</th><th>Live $</th><th>Value ₪</th><th>Value $</th><th>P&L ₪</th><th>P&L $</th><th>%</th></tr>
 </thead>
 <tbody id="holdings"></tbody>
 </table>
@@ -99,6 +96,7 @@ label{font-size:12px;color:var(--muted)}
 
 <script>
 let usdils=3.60;
+let marketExtra={GOLD:0,OIL:0};
 let charts={};
 let etfs=[
 {t:"SPY",u:5,cost:610,live:520},
@@ -113,17 +111,39 @@ const ILS=n=>"₪"+Math.round(n).toLocaleString("he-IL");
 const USD=n=>"$"+Math.round(n).toLocaleString("he-IL");
 
 function save(){
-localStorage.setItem("igorV2",JSON.stringify({etfs,age:age.value,retire:retire.value,monthly:monthly.value,rate:rate.value,goal:goal.value}));
+localStorage.setItem("igorV21",JSON.stringify({
+etfs,
+usdils,
+marketExtra,
+age:age.value,
+retire:retire.value,
+monthly:monthly.value,
+rate:rate.value,
+goal:goal.value
+}));
 }
+
 function load(){
-const d=JSON.parse(localStorage.getItem("igorV2")||"{}");
+const d=JSON.parse(localStorage.getItem("igorV21")||"{}");
 if(d.etfs) etfs=d.etfs;
+if(d.usdils) usdils=d.usdils;
+if(d.marketExtra) marketExtra=d.marketExtra;
 ["age","retire","monthly","rate","goal"].forEach(id=>{if(d[id]) document.getElementById(id).value=d[id]});
 }
+
 function valueUsd(e){return e.u*e.live}
 function costUsd(e){return e.u*e.cost}
 function totalUsd(){return etfs.reduce((s,e)=>s+valueUsd(e),0)}
 function totalCostUsd(){return etfs.reduce((s,e)=>s+costUsd(e),0)}
+
+function renderMarket(){
+market.innerHTML=
+box("USD/ILS",usdils.toFixed(3))+
+box("Gold / GLD",marketExtra.GOLD ? marketExtra.GOLD.toFixed(2) : "—")+
+box("Oil / USO",marketExtra.OIL ? marketExtra.OIL.toFixed(2) : "—")+
+etfs.map(e=>box(e.t,e.live.toFixed(2))).join("");
+}
+function box(a,b){return `<div><div class="small">${a}</div><div class="gold mid">${b}</div></div>`}
 
 function renderHoldings(){
 holdings.innerHTML=etfs.map((e,i)=>{
@@ -165,24 +185,37 @@ scales:type==="pie"?{}:{x:{ticks:{color:"#bca77c"},grid:{color:"#2b1f10"}},y:{ti
 function calculate(){
 let tUsd=totalUsd(), cUsd=totalCostUsd(), pnl=tUsd-cUsd, pct=cUsd?pnl/cUsd*100:0;
 let tIls=tUsd*usdils, pnlIls=pnl*usdils;
-totalIls.innerText=ILS(tIls); totalUsd.innerText=USD(tUsd);
-pnlIls.innerText=ILS(pnlIls); pnlUsd.innerText=USD(pnl);
-pnlIls.className=pnl>=0?"big green":"big red"; pnlUsd.className=pnl>=0?"small green":"small red";
-pnlPct.innerText=pct.toFixed(1)+"%"; pnlPct.className=pnl>=0?"big green":"big red";
+
+totalIls.innerText=ILS(tIls);
+totalUsd.innerText=USD(tUsd);
+pnlIls.innerText=ILS(pnlIls);
+pnlUsd.innerText=USD(pnl);
+pnlIls.className=pnl>=0?"big green":"big red";
+pnlUsd.className=pnl>=0?"small green":"small red";
+pnlPct.innerText=pct.toFixed(1)+"%";
+pnlPct.className=pnl>=0?"big green":"big red";
 passive.innerText=ILS(tIls*0.04/12);
 
 let cap=tIls, mon=N("monthly"), r=N("rate"), years=N("retire")-N("age"), goal=N("goal");
-let final=fv(cap,mon,r,years), fire=Math.min(100,cap/goal*100);
-fireText.innerText=fire.toFixed(0)+"%"; fireFill.style.width=fire+"%";
+let fire=Math.min(100,cap/goal*100);
+fireText.innerText=fire.toFixed(0)+"%";
+fireFill.style.width=fire+"%";
 milestones.innerHTML=`מיליון ראשון: <b>${milestone(1000000,cap,mon,r)}</b> · מיליון שני: <b>${milestone(2000000,cap,mon,r)}</b> · מיליון שלישי: <b>${milestone(3000000,cap,mon,r)}</b>`;
 
 let labels=[],growth=[],cash=[];
-for(let y=0;y<=years;y++){labels.push(N("age")+y); growth.push(Math.round(fv(cap,mon,r,y))); cash.push(Math.round(cap+mon*12*y));}
+for(let y=0;y<=years;y++){
+labels.push(N("age")+y);
+growth.push(Math.round(fv(cap,mon,r,y)));
+cash.push(Math.round(cap+mon*12*y));
+}
+
 chart("growthChart","line",labels,[{label:"Portfolio",data:growth,borderColor:"#66d29a",backgroundColor:"rgba(102,210,154,.15)",fill:true,tension:.35}]);
 chart("cashChart","line",labels,[{label:"Invested",data:growth,borderColor:"#66d29a",tension:.35},{label:"Cash",data:cash,borderColor:"#e26f76",borderDash:[8,6],tension:.35}]);
 chart("pieChart","pie",etfs.map(e=>e.t),[{data:etfs.map(e=>valueUsd(e)),backgroundColor:["#d4a548","#66d29a","#6387e0","#e26f76","#a56ef2"]}]);
 
 ledger.innerHTML="<tr><th>גיל</th><th>שווי עתידי</th><th>מזומן בלבד</th></tr>"+labels.map((a,i)=>`<tr><td>${a}</td><td>${ILS(growth[i])}</td><td>${ILS(cash[i])}</td></tr>`).join("");
+
+renderMarket();
 renderHoldings();
 save();
 }
@@ -190,24 +223,31 @@ save();
 async function loadLive(){
 status.innerText="טוען LIVE...";
 try{
-const fx=await fetch("https://api.frankfurter.app/latest?from=USD&to=ILS");
-const fxj=await fx.json();
-if(fxj.rates?.ILS) usdils=fxj.rates.ILS;
-
-const r=await fetch("/api/quote?symbols=SPY,QQQM,VTI,VXUS,SPMO");
+const r=await fetch("/api/quote?symbols=SPY,QQQM,VTI,VXUS,SPMO,GLD,USO");
 const j=await r.json();
+
+if(!j.data) throw new Error("No data");
+
 j.data.forEach(x=>{
+if(x.symbol==="USDILS" && x.price>0) usdils=x.price;
+if(x.symbol==="GLD" && x.price>0) marketExtra.GOLD=x.price;
+if(x.symbol==="USO" && x.price>0) marketExtra.OIL=x.price;
 let e=etfs.find(e=>e.t===x.symbol);
 if(e && x.price>0) e.live=x.price;
 });
+
 status.innerText="LIVE מחובר ✓";
 calculate();
-}catch(e){status.innerText="LIVE ERROR";}
+}catch(e){
+status.innerText="LIVE ERROR";
+}
 }
 
-document.querySelectorAll("input").forEach(el=>el.addEventListener("input",()=>{save();calculate()}));
+document.querySelectorAll("#age,#retire,#monthly,#rate,#goal").forEach(el=>el.addEventListener("input",()=>{save();calculate()}));
+
 load();
 renderHoldings();
+renderMarket();
 calculate();
 </script>
 </body>
