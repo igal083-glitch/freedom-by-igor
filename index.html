@@ -183,8 +183,14 @@ scales:type==="pie"?{}:{x:{ticks:{color:"#bca77c"},grid:{color:"#2b1f10"}},y:{ti
 }
 
 function calculate(){
-let tUsd=totalUsd(), cUsd=totalCostUsd(), pnl=tUsd-cUsd, pct=cUsd?pnl/cUsd*100:0;
-let tIls=tUsd*usdils, pnlIls=pnl*usdils;
+let tUsd = totalUsd();
+let cUsd = totalCostUsd();
+
+let pnl = tUsd - cUsd;
+let pct = cUsd ? (pnl / cUsd) * 100 : 0;
+
+let tIls = tUsd * usdils;
+let pnlIls = pnl * usdils;
 
 totalIls.innerText=ILS(tIls);
 totalUsd.innerText=USD(tUsd);
