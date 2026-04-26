@@ -266,7 +266,36 @@ async function loadLive(){
   }
 }
 
-document.querySelectorAll("input,select").forEach(el=>el.addEventListener("input",calculate));
+function saveData(){
+localStorage.setItem("igorData",JSON.stringify({
+spyu:spyu.value,qqqu:qqqu.value,vtiu:vtiu.value,vxusu:vxusu.value,spmou:spmou.value,
+spyp:spyp.value,qqqp:qqqp.value,vtip:vtip.value,vxusp:vxusp.value,spmop:spmop.value
+}));
+}
+
+function loadData(){
+const d=JSON.parse(localStorage.getItem("igorData")||"{}");
+if(d.spyu) spyu.value=d.spyu;
+if(d.qqqu) qqqu.value=d.qqqu;
+if(d.vtiu) vtiu.value=d.vtiu;
+if(d.vxusu) vxusu.value=d.vxusu;
+if(d.spmou) spmou.value=d.spmou;
+
+if(d.spyp) spyp.value=d.spyp;
+if(d.qqqp) qqqp.value=d.qqqp;
+if(d.vtip) vtip.value=d.vtip;
+if(d.vxusp) vxusp.value=d.vxusp;
+if(d.spmop) spmop.value=d.spmop;
+}
+
+document.querySelectorAll("input,select").forEach(el=>
+el.addEventListener("input",()=>{
+saveData();
+calculate();
+})
+);
+
+loadData();
 calculate();
 </script>
 </body>
